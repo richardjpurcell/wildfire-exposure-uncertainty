@@ -254,3 +254,121 @@ directional segments and high-exposure regions.
 The objective is to produce intermediate continuous
 support fractions and examine how decision margins
 can change without altering binary classifications.
+
+## E02 — Partial directional support and classification stability
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology experiment
+
+### Research question
+
+Can continuous directional exposure support change
+without changing the binary viability classification?
+
+### Experimental setup
+
+Script:
+- `scripts/e02_partial_support.R`
+
+Supporting function:
+- `R/directional_support.R`
+
+Landscape:
+- Synthetic exposure raster, 20 x 20 km
+- Resolution: 100 m
+- CRS: EPSG:3978
+- Exposure inside circular region: 0.75
+- Exposure outside circular region: 0.40
+- Reference point: (10000, 10000)
+
+Scenarios:
+- A: high-exposure radius 3500 m
+- B: high-exposure radius 3550 m
+
+Directional parameters:
+- 36 bearings at 10-degree intervals
+- Three consecutive 2 km segments per bearing
+- Exposure threshold: 0.60
+- Viability threshold: 0.80
+
+All other parameters were held constant.
+
+### Baseline results
+
+At a radius of 3500 m:
+
+| Segment | Mean support | Viable | Nonviable |
+|---|---:|---:|---:|
+| seg1 | 1.00000 | 36 | 0 |
+| seg2 | 0.74797 | 0 | 36 |
+| seg3 | 0.00000 | 0 | 36 |
+
+The middle-segment support ranged from
+0.72739 to 0.76642.
+
+The reconstructed classifications agreed
+with fire_exp_dir() for all 108 segments.
+
+### Scenario comparison
+
+Increasing the radius by 50 m produced:
+
+- Mean seg2 support change: +0.02266
+- Maximum seg2 support change: +0.05784
+- Minimum seg2 support change: 0
+- No support changes in seg1 or seg3
+- Binary classification changes: 0 of 108
+
+The reconstructed classifications agreed
+with fire_exp_dir() in both scenarios.
+
+### Illustrative segment
+
+At bearing 60 degrees, segment 2:
+
+| Measurement | Scenario A | Scenario B |
+|---|---:|---:|
+| Support | 0.73505 | 0.79289 |
+| Decision margin | -0.06495 | -0.00711 |
+| Viable | 0 | 0 |
+
+The segment approached the viability threshold
+without crossing it.
+
+### Interpretation
+
+This experiment demonstrates that continuous
+directional support and decision margins can
+change while binary viability classifications
+remain unchanged.
+
+The binary result alone therefore does not
+communicate the observed numerical sensitivity.
+
+Support changes differed by bearing even though
+the underlying region was nominally circular.
+The rasterized boundary is a plausible contributor,
+but its effects have not yet been isolated.
+
+Decision margins are distances from an operational
+threshold, not uncertainty probabilities.
+
+### Limitations
+
+- Fully synthetic landscape
+- No actual wildfire fuel or exposure data
+- No independent accuracy validation
+- Missing exposure evidence not explicitly modelled
+- Raster discretization effects not yet isolated
+- One exposure threshold and one viability threshold
+
+### Next experiment
+
+Extend E02 to larger radius changes to identify
+classification transitions and examine their
+relationship to the continuous decision margins.
+
+Subsequently, vary exposure and viability thresholds
+separately to study conclusion stability across
+threshold choices.

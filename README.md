@@ -47,17 +47,59 @@ We will distinguish evidence disagreement, numerical sensitivity, decision-margi
 
 ## Project status
 
-**Stage: Repository establishment**
+**Stage: Synthetic methodology validation**
 
-The research framework has been defined, but no new Westwood Hills exposure experiments have been completed within this project.
+The repository and R analysis environment are established.
+Synthetic experiments E01 and E02 have tested directional
+exposure classification and continuous support reconstruction.
 
-Prior exploratory work in other Nova Scotia locations informs the experimental design but does not constitute evidence of results in the new study area.
+The initial study region is Westwood Hills / Upper Tantallon,
+Nova Scotia. No new exposure results for that region have
+yet been produced within this project.
+
+The next methodological steps are to examine classification
+transitions, threshold sensitivity, and the treatment of
+missing exposure evidence before applying the workflow
+to the landscape datasets.
 
 ## Findings
 
-No experimental findings have yet been established for this study region.
+### Synthetic methodology findings
 
-This section will be updated as reproducible experiments are completed.
+**E01 — Continuous directional support reconstruction**
+
+Using a controlled synthetic exposure boundary, the
+reconstructed continuous support measurements reproduced
+all 108 binary directional classifications returned by
+`fireexposuR::fire_exp_dir()`.
+
+This demonstrates implementation consistency in the tested
+configuration, not independent validation of the method.
+
+**E02 — Numerical sensitivity without classification changes**
+
+Increasing a synthetic circular high-exposure region's radius
+from 3,500 m to 3,550 m changed the continuous support of
+the middle directional segments:
+
+- Mean support increase: 0.02266
+- Maximum support increase: 0.05784
+- Binary classification changes: 0 of 108
+
+For one segment at 60 degrees, support increased from
+0.73505 to 0.79289 while its classification remained
+nonviable at a threshold of 0.80.
+
+The experiment demonstrates that continuous support and
+decision margins can change without corresponding changes
+in binary classification.
+
+These findings concern synthetic representations and should
+not be interpreted as measurements of wildfire exposure,
+environmental uncertainty, or operational safety.
+
+Detailed methods, results, and limitations are recorded
+in the [experiment log](docs/experiment-log.md).
 
 ## Reproducibility
 
