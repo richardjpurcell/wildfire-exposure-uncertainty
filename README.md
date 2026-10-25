@@ -118,6 +118,29 @@ even under a nominally circular synthetic exposure region.
 The precise effects of raster discretization and spatial
 intersection geometry have not yet been isolated.
 
+**E04 — Stability across analytical thresholds**
+
+A continuous synthetic exposure surface was assessed
+using 72 combinations of exposure and directional
+viability thresholds.
+
+The continuous reconstruction reproduced all 7,776
+binary classifications returned by `fire_exp_dir()`.
+
+Across the tested threshold grid:
+
+- Inner segments were viable in 59-60 of 72 combinations.
+- Middle segments were viable in 27-28 of 72 combinations.
+- Outer segments were nonviable in all 72 combinations.
+
+This establishes a *threshold-grid viable fraction*
+for each directional segment. The fraction describes
+how frequently a segment is classified as viable
+under the selected analytical assumptions.
+
+It is not a probability of correctness or a calibrated
+measure of uncertainty.
+
 These findings concern synthetic representations and should
 not be interpreted as measurements of wildfire exposure,
 environmental uncertainty, or operational safety.

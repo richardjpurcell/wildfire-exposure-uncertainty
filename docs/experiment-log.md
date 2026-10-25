@@ -512,3 +512,130 @@ and changes in classification.
 Before application to real landscape datasets,
 explicitly distinguish missing exposure evidence
 from measured low exposure.
+
+## E04 — Two-dimensional threshold stability
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology experiment
+
+### Research question
+
+How do exposure and directional viability thresholds
+affect classifications when the underlying exposure
+surface remains fixed?
+
+### Experimental setup
+
+Script:
+- `scripts/e04_threshold_stability.R`
+
+Supporting function:
+- `R/directional_support.R`
+
+Landscape:
+- Synthetic radial exposure gradient
+- Extent: 20 x 20 km
+- Resolution: 100 m
+- CRS: EPSG:3978
+- Reference point: (10000, 10000)
+- Exposure decreases with distance from the centre
+- Exposure values bounded between 0.20 and 0.90
+
+Threshold grid:
+- Exposure threshold Te: 0.40 to 0.80, step 0.05
+- Viability threshold Tv: 0.60 to 0.95, step 0.05
+- Total threshold combinations: 72
+
+Directional configuration:
+- 36 bearings at 10-degree intervals
+- Three consecutive 2 km segments per bearing
+- Total directional segments: 108
+
+### Verification
+
+All 72 threshold combinations executed successfully.
+
+The reconstructed classifications agreed with
+fire_exp_dir() for all 7776 comparisons.
+
+Each directional segment was evaluated under
+exactly 72 threshold combinations.
+
+The segment-level viable fraction was independently
+verified against the integer count of viable outcomes.
+
+### Threshold-grid viable fraction
+
+For directional segment s:
+
+S(s) = number of viable threshold combinations / 72
+
+This quantity describes classification behaviour over
+the selected threshold grid.
+
+It is not a probability of correctness, a confidence
+level, or an operational safety measure.
+
+### Results
+
+| Segment | Viable combinations | Mean viable fraction |
+|---|---|---:|
+| seg1 | 59-60 of 72 | 0.82870 |
+| seg2 | 27-28 of 72 | 0.38310 |
+| seg3 | 0 of 72 | 0.00000 |
+
+At Te = 0.50, changing Tv from 0.70 to 0.80
+did not change the number of viable segments.
+
+At Te = 0.75, increasing Tv from 0.70 to 0.80
+reduced the number of viable segments from
+36 to zero.
+
+At Te = 0.80, all 108 segments were nonviable
+for every tested viability threshold.
+
+### Interpretation
+
+With the synthetic exposure surface held constant,
+changing analytical thresholds altered directional
+viability classifications.
+
+The inner directional segments remained viable
+under most tested threshold combinations.
+
+Middle segments were substantially more dependent
+on the selected thresholds.
+
+Outer segments remained nonviable throughout the
+tested threshold grid.
+
+This is consistency within a defined analytical
+parameter space, not evidence of environmental
+certainty or operational safety.
+
+Variation between segment groups was greater than
+variation among bearings within each group, as
+expected from the radial synthetic representation.
+
+### Limitations
+
+- Entirely synthetic exposure landscape
+- Radially symmetric exposure gradient
+- Results depend on the chosen threshold ranges
+  and sampling increments
+- Threshold combinations are not assigned
+  evidence-based probabilities or weights
+- No real fuel-map comparison
+- No independent assessment of predictive accuracy
+- Missing exposure evidence not explicitly modelled
+- No operational safety interpretation
+
+### Next experiment
+
+Investigate a heterogeneous synthetic exposure
+surface to test whether the threshold-grid viable
+fraction reveals stronger directional variation.
+
+Before using real landscape data, develop an
+explicit treatment of missing exposure evidence.
