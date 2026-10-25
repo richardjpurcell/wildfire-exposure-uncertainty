@@ -325,3 +325,137 @@ stopifnot(
 )
 
 cat("\nE06 intermediate coverage: PASSED\n")
+
+# E06: Integrate support and evidence coverage
+
+source("R/directional_support.R")
+
+# The measured-low/high landscape provides the transect
+# geometries used throughout this diagnostic.
+support_strip <- directional_support(
+  exposure = exposure_strip,
+  transects = measured_directions,
+  thresh_exp = 0.60,
+  thresh_viable = 0.80
+)
+
+integrated <- merge(
+  support_strip[, c(
+    "deg", "seg", "high_fraction"
+  )],
+  coverage_strip[, c(
+    "deg", "seg", "coverage_fraction"
+  )],
+  by = c("deg", "seg")
+)
+
+# High-exposure support among observed evidence.
+# Leave undefined when no evidence is available.
+integrated$observed_support <- ifelse(
+  integrated$coverage_fraction > 0,
+  integrated$high_fraction /
+    integrated$coverage_fraction,
+  NA_real_
+)
+
+cat("\nE06 integrated directional measurements:\n")
+
+print(
+  integrated[
+    integrated$deg %in% c(90, 270),
+    c(
+      "deg",
+      "seg",
+      "high_fraction",
+      "coverage_fraction",
+      "observed_support"
+    )
+  ],
+  row.names = FALSE,
+  digits = 5
+)
+
+stopifnot(
+  nrow(integrated) == 108,
+  all(integrated$high_fraction >= 0),
+  all(integrated$coverage_fraction >= 0),
+  all(
+    integrated$observed_support[
+      !is.na(integrated$observed_support)
+    ] <= 1 + 1e-6
+  )
+)
+
+cat("\nE06 integrated measurements: PASSED\n")
+
+# E06: Partial coverage with positive high-exposure support
+
+# Preserve the measured-high eastern half.
+# In the western half:
+#   x = 9000..10000: missing evidence
+#   x < 9000: measured high exposure
+
+exposure_partial_high <- ifel(
+  x >= 9000 & x < 10000,
+  NA_real_,
+  0.75
+)
+
+names(exposure_partial_high) <- "exposure"
+
+support_partial_high <- directional_support(
+  exposure = exposure_partial_high,
+  transects = measured_directions,
+  thresh_exp = 0.60,
+  thresh_viable = 0.80
+)
+
+coverage_partial_high <- directional_coverage(
+  exposure_partial_high,
+  measured_directions
+)
+
+partial_high <- merge(
+  support_partial_high[, c(
+    "deg", "seg", "high_fraction"
+  )],
+  coverage_partial_high[, c(
+    "deg", "seg", "coverage_fraction"
+  )],
+  by = c("deg", "seg")
+)
+
+partial_high$observed_support <- ifelse(
+  partial_high$coverage_fraction > 0,
+  partial_high$high_fraction /
+    partial_high$coverage_fraction,
+  NA_real_
+)
+
+selected <- partial_high[
+  partial_high$deg %in% c(90, 270),
+]
+
+cat("\nE06 partial coverage with high exposure:\n")
+
+print(
+  selected[
+    order(selected$deg, selected$seg),
+  ],
+  row.names = FALSE,
+  digits = 5
+)
+
+western_first <- partial_high[
+  partial_high$deg == 270 &
+    partial_high$seg == "seg1",
+]
+
+stopifnot(
+  nrow(western_first) == 1,
+  abs(western_first$coverage_fraction - 0.5) < 0.02,
+  abs(western_first$high_fraction - 0.5) < 0.02,
+  abs(western_first$observed_support - 1) < 0.02
+)
+
+cat("\nE06 partial-high integration: PASSED\n")
