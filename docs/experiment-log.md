@@ -59,3 +59,97 @@ No new experimental results have been generated for Westwood Hills.
 The first planned research activity is an inventory of the 2019, 2024, and 2026 federal FBP fuel maps and Nova Scotia provincial forest inventory evidence.
 
 The inventory will establish source documentation, geographic coverage, classification definitions, resolution, projection, provenance, and relevant observation dates before comparative analyses begin.
+
+## 2026-10-25 — Synthetic exposure functionality tests
+
+**Status:** Completed
+**Type:** Software verification
+**Environment:** Conda R 4.4.3, fireexposuR 1.2.0
+
+### Objective
+
+Verify that continuous and directional exposure
+functions execute successfully using controlled
+synthetic inputs.
+
+These tests do not validate wildfire behaviour
+or establish results for Westwood Hills.
+
+### Test 1 — Continuous exposure
+
+Script: `scripts/test_fire_exp.R`
+
+Input:
+- 51 x 51 synthetic hazard raster
+- 100 m resolution
+- 25 hazardous cells in a central 5 x 5 patch
+- Transmission distance: 500 m
+
+Results:
+- Output raster: 51 x 51 cells
+- Valid exposure cells: 1,681
+- Missing exposure cells: 920
+- Minimum exposure: 0.0000
+- Maximum exposure: 0.3000
+- Mean exposure: 0.0148721
+
+The output passed checks for dimensions,
+finite values, and the expected 0-1 range.
+
+The cause and spatial distribution of missing
+cells have not been independently verified.
+
+### Test 2 — Directional exposure
+
+Script: `scripts/test_fire_exp_dir.R`
+
+Input:
+- Uniform synthetic exposure raster
+- Extent: 20 x 20 km
+- Resolution: 100 m
+- Bearings: 10-degree intervals
+- Segments: three of 2 km each
+- Exposure threshold: 0.60
+- Viability threshold: 0.80
+
+Results:
+
+| Exposure | Viable | Nonviable |
+|---|---:|---:|
+| 0.75 | 108 | 0 |
+| 0.40 | 0 | 108 |
+
+Both cases produced 108 directional features,
+with 36 features in each segment group.
+
+All automated structural and classification
+assertions passed.
+
+### Interpretation
+
+The installed software executes the two principal
+calculations needed for our experimental workflow.
+
+The directional function returns binary
+classification results.
+
+Continuous segment-level measurements will need
+to be reconstructed separately for the proposed
+threshold-stability investigation.
+
+### Limitations
+
+- Synthetic inputs only.
+- No independent numerical reference calculation.
+- No real landscape data.
+- No validation of predictive performance.
+- No uncertainty calibration.
+
+### Next experiment
+
+Investigate directional classification transitions
+using spatially varying synthetic exposure.
+
+Measure continuous high-exposure proportions and
+decision margins before exploring the full
+two-dimensional threshold space.
