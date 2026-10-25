@@ -300,3 +300,65 @@ stopifnot(
 )
 
 cat("\nE05 paired threshold consistency: PASSED\n")
+
+# E05 visualization data export
+
+source("R/directional_coverage.R")
+source("R/directional_assessment.R")
+
+baseline_assessment <- directional_assessment(
+  exposure = exposure,
+  transects = directions,
+  thresh_exp = 0.60,
+  thresh_viable = 0.80
+)
+
+visualization_data <- merge(
+  baseline_assessment,
+  counts[, c("deg", "seg", "viable_count", "viable_fraction")],
+  by = c("deg", "seg")
+)
+
+stopifnot(
+  nrow(visualization_data) == 108,
+  all(visualization_data$coverage_fraction >= 0),
+  all(visualization_data$coverage_fraction <= 1),
+  all(visualization_data$viable_count >= 0),
+  all(visualization_data$viable_count <= 72)
+)
+
+dir.create("outputs", showWarnings = FALSE)
+
+output_path <- "outputs/e05_directional_assessment.csv"
+
+write.csv(
+  visualization_data,
+  output_path,
+  row.names = FALSE
+)
+
+cat("\nE05 visualization dataset exported:\n")
+cat(output_path, "\n")
+cat("Rows:", nrow(visualization_data), "\n")
+
+cat("\nSelected middle segments:\n")
+
+print(
+  visualization_data[
+    visualization_data$deg %in% c(90, 270) &
+      visualization_data$seg == "seg2",
+    c(
+      "deg",
+      "seg",
+      "high_fraction",
+      "coverage_fraction",
+      "observed_support",
+      "viable_count",
+      "viable_fraction"
+    )
+  ],
+  row.names = FALSE,
+  digits = 5
+)
+
+cat("\nE05 visualization data export: PASSED\n")
