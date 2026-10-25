@@ -1,0 +1,44 @@
+
+# macOS
+.DS_Store
+.AppleDouble
+._*
+
+# R and RStudio session files
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+.Renviron
+
+# R temporary and generated files
+.Rcheck/
+*.Rout
+
+# Local environments
+.env
+.env.*
+.venv/
+renv/library/
+renv/staging/
+
+# Downloaded and processed datasets
+/data/raw/
+/data/processed/
+/data/cache/
+
+# Temporary or scratch outputs
+/tmp/
+/scratch/
+
+# Large geospatial files
+*.tif
+*.tiff
+*.vrt
+*.gpkg
+*.shp
+*.shx
+*.dbf
+*.prj
+*.grd
+*.gri
