@@ -5,3 +5,16 @@ channels:
 
 dependencies:
   - r-base=4.4
+  - r-terra
+  - r-sf
+  - r-codetools
+  - r-dplyr
+  - r-geosphere
+  - r-ggplot2
+  - r-rlang
+  - r-tidyr
+  - r-tidyselect
+  - r-ggspatial
+  - r-maptiles
+  - r-tmap
+  - r-rgl
