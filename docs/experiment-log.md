@@ -1053,3 +1053,89 @@ and their supporting evidence conditions.
 Keep threshold sensitivity and evidence coverage
 separate rather than combining them into a single
 uncertainty score.
+
+## E05 extension — Paired directional visualizations
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology visualization
+
+### Objective
+
+Develop two complementary directional diagrams
+that distinguish a baseline exposure assessment
+from its sensitivity to analytical thresholds.
+
+### Reproducible outputs
+
+Source data:
+- `outputs/e05_directional_assessment.csv`
+
+Plotting scripts:
+- `scripts/plot_e05_exposure_assessment.R`
+- `scripts/plot_e05_threshold_stability.R`
+
+Figures:
+- `outputs/figures/e05_exposure_assessment.png`
+- `outputs/figures/e05_threshold_stability.png`
+
+Both figures represent 36 bearings and three
+consecutive 2 km directional segments.
+
+### Figure A — Baseline exposure
+
+Fill colour represents continuous high-exposure
+support at Te = 0.60.
+
+Dark segment borders indicate baseline viability
+at Tv = 0.80.
+
+The baseline assessment contains:
+- 108 directional segments
+- 54 viable
+- 54 nonviable
+- Mean high-exposure support: 0.58297
+
+### Figure B — Threshold stability
+
+Fill colour represents the fraction of 72
+threshold combinations producing a viable
+classification for each directional segment.
+
+Unlike Figure A, this figure does not repeat
+the baseline viability border encoding.
+
+The mean threshold-grid viable fraction across
+all 108 segments is 0.49627.
+
+### Interpretation
+
+The paired figures distinguish what the assessment
+indicates at selected thresholds from how frequently
+those classifications persist across the tested
+threshold grid.
+
+The figures preserve directional relationships
+and distance segments.
+
+They are directional assessment diagrams, not
+geographic maps of actual wildfire conditions.
+
+### Limitations
+
+- Entirely synthetic heterogeneous exposure surface
+- Complete evidence coverage in the E05 landscape
+- No indication of missing or outdated observations
+- Threshold-grid fractions are not probabilities
+  of correctness or operational safety
+- Raster resolution and alignment remain fixed
+- No real landscape results are represented
+
+### Next step
+
+Create a comparable evidence-coverage view using
+a controlled incomplete-evidence representation.
+
+Evaluate whether the exposure, threshold-sensitivity,
+and evidence-coverage views communicate distinct
+information without requiring a combined score.
