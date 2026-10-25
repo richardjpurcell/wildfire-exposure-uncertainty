@@ -94,6 +94,30 @@ The experiment demonstrates that continuous support and
 decision margins can change without corresponding changes
 in binary classification.
 
+**E03 — Direction-dependent classification transitions**
+
+Expanding the synthetic high-exposure region produced
+different classification transitions across directional
+segments:
+
+- Radius 3,550 m: 0 of 36 middle segments viable
+- Radius 3,600 m: 12 of 36 middle segments viable
+- Radius 3,650 m: 32 of 36 middle segments viable
+
+Continuous support and binary viability were nondecreasing
+across all 108 segment identities.
+
+At 3,600 m, mean middle-segment support remained below
+the 0.80 viability threshold, although 12 individual
+segments were classified as viable.
+
+The experiment demonstrates that directional conclusions
+can change at different tested representation settings,
+even under a nominally circular synthetic exposure region.
+
+The precise effects of raster discretization and spatial
+intersection geometry have not yet been isolated.
+
 These findings concern synthetic representations and should
 not be interpreted as measurements of wildfire exposure,
 environmental uncertainty, or operational safety.

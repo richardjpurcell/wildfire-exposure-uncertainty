@@ -372,3 +372,143 @@ relationship to the continuous decision margins.
 Subsequently, vary exposure and viability thresholds
 separately to study conclusion stability across
 threshold choices.
+
+## E03 — Directional classification transitions
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology experiment
+
+### Research question
+
+How does an expanding high-exposure region affect
+continuous directional support, decision margins,
+and the point at which binary classifications change?
+
+### Experimental setup
+
+Script:
+- `scripts/e03_classification_transition.R`
+
+Supporting function:
+- `R/directional_support.R`
+
+Landscape:
+- Synthetic exposure raster, 20 x 20 km
+- Resolution: 100 m
+- CRS: EPSG:3978
+- Exposure inside circular region: 0.75
+- Exposure outside circular region: 0.40
+- Reference point: (10000, 10000)
+
+Tested high-exposure radii:
+- 3550 m
+- 3600 m
+- 3650 m
+
+Directional parameters:
+- 36 bearings at 10-degree intervals
+- Three consecutive 2 km segments per bearing
+- Exposure threshold: 0.60
+- Viability threshold: 0.80
+
+### Middle-segment results
+
+| Radius (m) | Mean support | Mean margin | Viable bearings |
+|---|---:|---:|---:|
+| 3550 | 0.77063 | -0.02937 | 0 / 36 |
+| 3600 | 0.79285 | -0.00715 | 12 / 36 |
+| 3650 | 0.81497 | +0.01497 | 32 / 36 |
+
+At 3600 m, the mean support remained below 0.80,
+but 12 individual bearings were classified as viable.
+
+This occurs because viability is determined separately
+for each directional segment, not by thresholding
+the mean across bearings.
+
+### First observed viable radius
+
+Across all 108 directional segments:
+
+| First tested viable radius | Segment count |
+|---|---:|
+| 3550 m | 36 |
+| 3600 m | 12 |
+| 3650 m | 20 |
+| Not viable by 3650 m | 40 |
+
+The 36 segments already viable at 3550 m were
+inner segments.
+
+Of the 40 segments remaining nonviable at 3650 m,
+36 were outer segments and four were middle segments.
+
+These are first observed viable radii among the
+three tested values, not exact transition locations.
+
+### Selected directional examples
+
+At bearing 90 degrees, middle-segment support
+increased from 0.75062 at 3550 m to 0.80063
+at 3600 m, crossing the viability threshold.
+
+At bearing 60 degrees, middle-segment support
+was 0.79289 at 3550 m and 0.79345 at 3650 m.
+It remained nonviable throughout the tested range.
+
+### Verification
+
+The continuous reconstruction reproduced all
+108 fire_exp_dir() classifications in each
+of the three radius scenarios.
+
+Across the 108 segment identities:
+
+- Continuous support was nondecreasing: 108 / 108
+- Binary viability was nondecreasing: 108 / 108
+
+### Interpretation
+
+As the synthetic high-exposure region expanded,
+continuous directional support increased or
+remained unchanged.
+
+Binary viability changed discontinuously when
+individual support fractions reached the chosen
+viability threshold.
+
+Different bearings crossed that threshold at
+different tested radii.
+
+The direction-dependent response is consistent
+with effects of raster discretization and spatial
+intersection geometry, but the contributions of
+those mechanisms have not been isolated.
+
+Together with E02, this experiment distinguishes
+changes in numerical support from changes in
+the resulting classification.
+
+### Limitations
+
+- Synthetic circular exposure representation
+- Only three tested radius values
+- Exact classification transition radii unknown
+- Raster discretization effects not isolated
+- No real wildfire fuel or exposure observations
+- Missing exposure evidence not explicitly modelled
+- Fixed exposure and viability thresholds
+- No operational safety interpretation
+
+### Next experiment
+
+Investigate stability across a two-dimensional
+grid of exposure and viability thresholds.
+
+Separate numerical sensitivity, decision margins,
+and changes in classification.
+
+Before application to real landscape datasets,
+explicitly distinguish missing exposure evidence
+from measured low exposure.
