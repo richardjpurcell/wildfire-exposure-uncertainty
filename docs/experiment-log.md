@@ -799,3 +799,176 @@ Develop visual representations that distinguish:
 Before extending these methods to real landscape
 evidence, explicitly address missing exposure
 values and differences in data provenance.
+
+## E06 — Missing evidence and directional coverage
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology experiment
+
+### Research question
+
+Can directional classifications distinguish measured
+low exposure from unavailable exposure evidence?
+
+Can evidence coverage be measured independently
+of the directional viability classification?
+
+### Experimental setup
+
+Script:
+- `scripts/e06_missing_evidence.R`
+
+Supporting function:
+- `R/directional_coverage.R`
+
+Landscape:
+- Synthetic 20 x 20 km raster
+- Resolution: 100 m
+- CRS: EPSG:3978
+- Reference point: (10000, 10000)
+
+Directional parameters:
+- 36 bearings at 10-degree intervals
+- Three consecutive 2 km segments per bearing
+- Exposure threshold: 0.60
+- Viability threshold: 0.80
+
+### Package behaviour
+
+Three uniform-raster scenarios were initially tested.
+
+Measured-low exposure (0.40):
+- All 40000 raster cells contained valid values.
+- fire_exp_dir() returned an error:
+  no applicable method for 'mutate' applied to
+  an object of class "SpatVector".
+
+Measured-high exposure (0.75):
+- All 40000 raster cells contained valid values.
+- All 108 directional segments were viable.
+
+Entirely missing exposure:
+- All 40000 cells contained NA.
+- fire_exp_dir() returned an error stating that
+  exposure values must be between 0 and 1.
+
+These errors are observed behaviour of the
+installed package and dependency versions.
+They are not valid directional classifications.
+
+### Partial missing-data scenario
+
+A raster containing high exposure (0.75) in the
+eastern half and missing values in the western
+half produced:
+
+- Available raster cells: 20000 of 40000
+- Viable directional segments: 54
+- Nonviable directional segments: 54
+
+At 90 degrees, all three segments were viable.
+At 270 degrees, all three segments were nonviable.
+
+### Paired evidence comparison
+
+Two landscapes were compared:
+
+Scenario A:
+- Western exposure: 0.40
+- Eastern exposure: 0.75
+
+Scenario B:
+- Western exposure: NA
+- Eastern exposure: 0.75
+
+The directional viability classifications agreed
+for all 108 segments.
+
+At 270 degrees, all three western segments were
+nonviable in both scenarios despite their
+different evidence conditions.
+
+### Directional evidence coverage
+
+Evidence coverage was defined as:
+
+C = observed segment length / total segment length
+
+Observed length was measured by intersecting
+directional segments with raster cells containing
+nonmissing exposure values.
+
+At the selected bearings:
+
+| Bearing | Measured scenario | Missing scenario |
+|---|---:|---:|
+| 90 degrees | 1.00 | 1.00 |
+| 270 degrees | 1.00 | 0.00 |
+
+These coverage results applied to all three
+segments at each selected bearing.
+
+The identical viability classifications therefore
+concealed different evidence completeness.
+
+### Intermediate coverage test
+
+A 1 km-wide strip of missing exposure values
+was introduced west of the reference point.
+
+Measured coverage:
+
+| Direction and segment | Coverage |
+|---|---:|
+| East 90 degrees, seg1 | 1.00000 |
+| East 90 degrees, seg2 | 1.00000 |
+| East 90 degrees, seg3 | 1.00000 |
+| West 270 degrees, seg1 | 0.49982 |
+| West 270 degrees, seg2 | 1.00000 |
+| West 270 degrees, seg3 | 1.00000 |
+
+The western first-segment result is consistent
+with the expected partial intersection of
+the missing-data strip.
+
+### Interpretation
+
+Binary directional classifications alone do not
+reveal whether the underlying exposure evidence
+is complete, incomplete, or absent.
+
+Evidence coverage provides an independent
+measurement of the spatial availability of
+exposure values along directional segments.
+
+It should remain separate from continuous
+high-exposure support and threshold-grid
+viability fractions.
+
+### Limitations
+
+- Fully synthetic exposure representations
+- Controlled missing-data geometry
+- Package errors observed for two uniform cases
+- Coverage tested at selected directions
+- No independent geometric accuracy validation
+- Nonmissing values treated as available evidence
+- Evidence age, quality, classification validity,
+  and provenance not evaluated
+- No real wildfire exposure observations
+- No operational safety interpretation
+
+### Next steps
+
+Develop an assessment representation that
+communicates three separate properties:
+
+1. Continuous high-exposure support
+2. Threshold-dependent classification behaviour
+3. Evidence coverage
+
+Before applying the workflow to Westwood Hills,
+examine missing-data handling and evidence
+provenance in the federal and provincial
+landscape datasets.

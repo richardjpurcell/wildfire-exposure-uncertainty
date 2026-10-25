@@ -166,6 +166,34 @@ heterogeneity can affect the stability of directional
 conclusions, even at equal distances from the
 reference point.
 
+**E06 — Missing evidence and directional coverage**
+
+A controlled comparison replaced measured low exposure
+with missing raster values while preserving the
+high-exposure region.
+
+All 108 binary directional classifications remained
+identical between the two representations.
+
+However, evidence coverage differed:
+
+- Measured-low western segments: 100% coverage.
+- Missing-evidence western segments: 0% coverage.
+- A separate partial-coverage test produced 49.982%
+  coverage in the first western segment.
+
+The experiment demonstrates that a nonviable directional
+classification does not establish whether exposure
+measurements are complete or even available.
+
+We therefore measure *directional evidence coverage*
+independently of continuous exposure support and
+threshold-grid viability.
+
+Coverage measures the spatial availability of nonmissing
+raster values. It does not establish their accuracy,
+currency, provenance, or suitability for fire assessment.
+
 These findings concern synthetic representations and should
 not be interpreted as measurements of wildfire exposure,
 environmental uncertainty, or operational safety.
