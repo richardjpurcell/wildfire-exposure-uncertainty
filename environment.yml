@@ -1,0 +1,7 @@
+name: wildfire-exposure
+
+channels:
+  - conda-forge
+
+dependencies:
+  - r-base=4.4

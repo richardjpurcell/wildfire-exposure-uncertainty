@@ -25,7 +25,7 @@ Not every entry requires all fields. Repository setup and other administrative s
 
 ## 2026-10-25 — Project initialization
 
-**Status:** In progress
+**Status:** Completed
 
 ### Objective
 
@@ -40,12 +40,17 @@ Establish a reproducible local Git repository and corresponding GitHub repositor
 - Established the initial `.gitignore`.
 - Created the root README describing the research objective, study region, planned methods, and limitations.
 
-### Pending
+- Created the public GitHub repository `richardjpurcell/wildfire-exposure-uncertainty`.
+- Connected the local repository to GitHub using `origin`.
+- Verified the initial push of commit `f2c4725` and synchronization of `main` with `origin/main`.
+- Created `environment.yml` specifying the initial Conda environment with R 4.4.
 
-- Complete initial documentation.
-- Create the first local Git commit.
-- Establish and verify the GitHub remote.
-- Record the reproducible software environment.
+### Next activities
+
+- Establish and verify required R packages, including `terra` and `fireexposuR`.
+- Inventory the 2019, 2024, and 2026 federal FBP fuel datasets.
+- Identify relevant Nova Scotia provincial forest inventory products.
+- Document dataset provenance, observation dates, classification definitions, spatial characteristics, and acquisition procedures.
 
 ### Research status
 
