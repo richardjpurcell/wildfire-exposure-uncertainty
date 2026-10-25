@@ -972,3 +972,84 @@ Before applying the workflow to Westwood Hills,
 examine missing-data handling and evidence
 provenance in the federal and provincial
 landscape datasets.
+
+## E06 extension — Integrated directional assessment
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology integration
+
+### Objective
+
+Combine continuous directional high-exposure support
+and evidence coverage without changing the existing
+package-compatible viability calculation.
+
+### Implementation
+
+Reusable functions:
+
+- `R/directional_support.R`
+- `R/directional_coverage.R`
+- `R/directional_assessment.R`
+
+Validation script:
+
+- `scripts/test_directional_assessment.R`
+
+The integrated function reports:
+
+1. High-exposure support over total segment length
+2. Evidence coverage over total segment length
+3. High-exposure support among observed evidence
+4. Reconstructed package-compatible viability
+5. Evidence status: complete, partial, or missing
+
+Observed-only support is undefined (NA) when
+evidence coverage is zero.
+
+### Verified results
+
+For the first western segment (270 degrees, seg1):
+
+| Scenario | Total support | Coverage | Observed support | Viable |
+|---|---:|---:|---:|---:|
+| Measured low | 0.00000 | 1.00000 | 0.00000 | 0 |
+| Missing west | 0.00000 | 0.00000 | NA | 0 |
+| Partial high | 0.49982 | 0.49982 | 1.00000 | 0 |
+
+All three scenarios produced the same reconstructed
+binary viability classification, despite having
+different evidence conditions.
+
+### Interpretation
+
+A nonviable classification does not establish
+that complete measurements indicate low exposure.
+
+Total-length support and observed-only support
+answer different questions and must not be
+substituted for one another.
+
+Evidence coverage supplies additional context
+needed to interpret the directional classification.
+
+### Limitations
+
+- Validation uses controlled synthetic landscapes.
+- Package-compatible viability remains based on
+  total-length high-exposure support.
+- Coverage reflects the presence of raster values,
+  not their accuracy, age, or provenance.
+- No minimum evidence-coverage requirement has
+  been imposed for interpreting viability.
+- No real landscape assessment has been performed.
+
+### Next step
+
+Develop a paired presentation of exposure results
+and their supporting evidence conditions.
+
+Keep threshold sensitivity and evidence coverage
+separate rather than combining them into a single
+uncertainty score.
