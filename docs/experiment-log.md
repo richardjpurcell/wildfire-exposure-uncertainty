@@ -153,3 +153,104 @@ using spatially varying synthetic exposure.
 Measure continuous high-exposure proportions and
 decision margins before exploring the full
 two-dimensional threshold space.
+
+## E01 — Directional exposure across a synthetic boundary
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology experiment
+
+### Research question
+
+Can we reconstruct the continuous high-exposure
+support underlying the binary directional
+classifications returned by fire_exp_dir()?
+
+### Experimental setup
+
+Scripts:
+- `scripts/e01_directional_transition.R`
+- `R/directional_support.R`
+
+Landscape:
+- Synthetic exposure raster, 20 x 20 km
+- Resolution: 100 m
+- CRS: EPSG:3978
+- Western exposure: 0.40
+- Eastern exposure: 0.75
+- Reference point: (10000, 10000)
+
+Directional parameters:
+- 36 bearings, 10-degree intervals
+- Three segments of 2 km per bearing
+- Exposure threshold: 0.60
+- Viability threshold: 0.80
+
+### Original classifications
+
+The directional calculation returned 108 segments.
+
+- 54 viable
+- 54 nonviable
+- 18 viable and 18 nonviable in each segment group
+
+Bearings 10-180 degrees were viable.
+Bearings 190-360 degrees were nonviable.
+
+### Continuous reconstruction
+
+The reconstructed measurement was:
+
+P = high-exposure intersection length /
+    complete segment length
+
+The decision margin was:
+
+M = P - viability threshold
+
+Applying the viability threshold to the
+reconstructed values reproduced all 108
+fire_exp_dir() classifications.
+
+Selected measurements:
+
+| Bearing | Support P | Margin M | Viable |
+|---|---:|---:|---:|
+| 90 | 1.00 | +0.20 | 1 |
+| 180 | 1.00 | +0.20 | 1 |
+| 270 | 0.00 | -0.80 | 0 |
+| 360 | 0.00 | -0.80 | 0 |
+
+All three segments at each selected bearing
+had the same support and classification.
+
+### Interpretation
+
+The reconstruction agrees with the original
+directional classifications in this controlled test.
+
+The result establishes implementation consistency,
+not independent validation of the exposure method.
+
+The imposed exposure boundary produced support
+fractions of either zero or one.
+
+Consequently, this experiment did not establish
+gradual decision-margin sensitivity.
+
+### Limitations
+
+- Artificial exposure values and boundary
+- No landscape evidence or fuel classification
+- No independent validation of numerical accuracy
+- Missing exposure evidence not explicitly modelled
+- No calibrated uncertainty or safety interpretation
+
+### Next experiment
+
+E02 will introduce partial intersections between
+directional segments and high-exposure regions.
+
+The objective is to produce intermediate continuous
+support fractions and examine how decision margins
+can change without altering binary classifications.
