@@ -639,3 +639,163 @@ fraction reveals stronger directional variation.
 
 Before using real landscape data, develop an
 explicit treatment of missing exposure evidence.
+
+## E05 — Directional stability under heterogeneous exposure
+
+**Date:** 2026-10-25
+**Status:** Completed
+**Type:** Synthetic methodology experiment
+
+### Research question
+
+Can the threshold-grid viable fraction distinguish
+directions with different exposure representations
+at the same distance from the reference point?
+
+### Experimental setup
+
+Script:
+- `scripts/e05_heterogeneous_exposure.R`
+
+Supporting function:
+- `R/directional_support.R`
+
+Landscape:
+- Synthetic 20 x 20 km exposure raster
+- Resolution: 100 m
+- CRS: EPSG:3978
+- Reference point: (10000, 10000)
+- E04 radial exposure gradient as baseline
+- Exposure increment of 0.10 in the eastern half
+- Exposure values clamped to [0.20, 0.90]
+
+Threshold grid:
+- Exposure threshold Te: 0.40 to 0.80, step 0.05
+- Viability threshold Tv: 0.60 to 0.95, step 0.05
+- 72 threshold combinations
+
+Directional configuration:
+- 36 bearings at 10-degree intervals
+- Three consecutive 2 km segments per bearing
+- 108 directional segments
+
+### Exposure surface verification
+
+At sample points approximately 3 km east and west
+of the reference point:
+
+- Eastern exposure: 0.694959
+- Western exposure: 0.604958
+- Difference: +0.090001
+
+The measured difference is slightly below the
+nominal eastern increment of 0.10 because the
+sampled raster cell centres are not at identical
+distances from the reference point.
+
+### Initial directional comparison
+
+At Te = 0.60 and Tv = 0.80:
+
+| Segment | East support | West support |
+|---|---:|---:|
+| seg1 | 1.00000 | 1.00000 |
+| seg2 | 1.00000 | 0.50053 |
+| seg3 | 0.00071 | 0.00000 |
+
+The eastern middle segment was viable; the western
+middle segment was nonviable.
+
+Across all bearings:
+- seg1: 36 viable, 0 nonviable
+- seg2: 18 viable, 18 nonviable
+- seg3: 0 viable, 36 nonviable
+
+### Threshold-grid viable fractions
+
+| Segment | Minimum | Mean | Maximum |
+|---|---:|---:|---:|
+| seg1 | 0.81944 | 0.91435 | 1.00000 |
+| seg2 | 0.37500 | 0.49421 | 0.61111 |
+| seg3 | 0.00000 | 0.08025 | 0.16667 |
+
+For middle segments at selected bearings:
+
+- East (90 degrees): viable in 44 of 72 combinations
+- West (270 degrees): viable in 28 of 72 combinations
+
+### Paired threshold comparison
+
+Across the 72 paired threshold combinations:
+
+| Paired outcome | Combinations |
+|---|---:|
+| East viable, west nonviable | 16 |
+| West viable, east nonviable | 0 |
+| Same classification | 56 |
+
+The eastern middle segment's continuous support
+was never lower than the western segment's support
+in the paired comparisons.
+
+This verifies a consistent directional ordering
+for the selected bearings and threshold grid.
+
+### Verification
+
+For each threshold combination, the reconstructed
+classifications agreed with fire_exp_dir() for
+all 108 segments.
+
+A total of 7776 reconstructed classifications
+were checked across the 72 combinations.
+
+The paired east-west consistency assertions passed.
+
+### Interpretation
+
+The heterogeneous synthetic exposure surface
+produced differences in directional support,
+binary classifications, and threshold-grid
+viable fractions.
+
+The selected eastern middle segment remained
+viable under more threshold combinations than
+its western counterpart.
+
+The paired comparison showed that this difference
+was consistently ordered across the tested grid,
+rather than reflecting opposing classification
+patterns at different parameter combinations.
+
+These findings establish properties of the
+controlled synthetic assessment workflow.
+
+They do not establish wildfire exposure,
+environmental uncertainty, or operational
+safety at a real location.
+
+### Limitations
+
+- Fully synthetic exposure representation
+- Deliberately imposed east-west asymmetry
+- Abrupt exposure increment at the dividing line
+- Fixed raster resolution and alignment
+- Results depend on the selected threshold grid
+- Threshold combinations have no probability weights
+- No real fuel-map observations or comparisons
+- Missing exposure evidence not explicitly modelled
+- No independent assessment of predictive accuracy
+
+### Next steps
+
+Develop visual representations that distinguish:
+
+1. Directional classification at selected thresholds
+2. Continuous support and distance from thresholds
+3. Threshold-grid viable fractions
+4. Where paired conclusions disagree
+
+Before extending these methods to real landscape
+evidence, explicitly address missing exposure
+values and differences in data provenance.

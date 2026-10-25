@@ -141,6 +141,31 @@ under the selected analytical assumptions.
 It is not a probability of correctness or a calibrated
 measure of uncertainty.
 
+**E05 — Directional stability under heterogeneous exposure**
+
+Introducing a controlled east-west exposure difference
+produced directional variation in both continuous support
+and threshold-grid viability.
+
+At the baseline thresholds (Te = 0.60, Tv = 0.80),
+the eastern middle segment was viable while the western
+middle segment was nonviable.
+
+Across 72 threshold combinations:
+
+- East (90 degrees): viable in 44 combinations.
+- West (270 degrees): viable in 28 combinations.
+- East viable and west nonviable: 16 combinations.
+- West viable and east nonviable: 0 combinations.
+
+The paired comparison demonstrates a consistent
+directional ordering within the tested threshold grid.
+
+This synthetic result illustrates how spatial
+heterogeneity can affect the stability of directional
+conclusions, even at equal distances from the
+reference point.
+
 These findings concern synthetic representations and should
 not be interpreted as measurements of wildfire exposure,
 environmental uncertainty, or operational safety.
