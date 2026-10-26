@@ -2218,3 +2218,117 @@ Keep three questions separate:
   that composition?
 
 No map accuracy or fuel-behaviour validation is claimed.
+
+### D07 — Provincial evidence for C-4 to C-2 disagreement (2026-10-26)
+
+**Status:** Reproducible exploratory analysis completed
+
+#### Research question
+
+What does provincial forest-inventory evidence describe
+in cells classified C-4 in the 2024 FBP map and C-2
+in the 2026 FBP map?
+
+These are two conifer fuel models, but they describe
+different species associations and stand structures.
+
+#### Reproducible implementation
+
+Script:
+`scripts/d07_c4_to_c2_provincial_composition.R`
+
+Outputs:
+- `outputs/tables/d07_c4_to_c2_area_summary.csv`
+- `outputs/tables/d07_c4_to_c2_species_composition.csv`
+- `outputs/tables/d07_c4_to_c2_evidence_years.csv`
+
+The analysis uses aligned national FBP rasters,
+provincial forest polygons, exact polygon intersections,
+and area-weighted first-story species components.
+
+#### Verified study population
+
+- Selected paired FBP cells: 3,568.
+- Projected target ground area: 3,436.711 ha.
+- Intersecting provincial forest area: 3,040.746 ha.
+- Provincial forest coverage: 88.478%.
+- Forest area with complete species-component encoding:
+  2,834.208 ha (93.208% of provincial forest).
+- Forest area without species components:
+  206.538 ha (6.792% of provincial forest).
+
+The provincial forest intersection is not equivalent
+to a complete contemporary ground survey.
+
+#### Leading first-story species codes
+
+Percentages below use the 2,834.208 ha with complete
+recorded species components as their denominator.
+
+| Code | Documented description | Percent |
+|---|---|---:|
+| RS | Red spruce | 27.932% |
+| BF | Balsam fir | 15.268% |
+| BS | Black spruce | 14.724% |
+| RM | Red maple | 12.446% |
+| XS | Mixed red and black spruce category | 8.699% |
+| UC | Unclassified species | 5.135% |
+
+The five leading codes represent approximately
+79.07% of described first-story composition.
+
+XS is retained as a combined category. UC is not
+treated as an identified botanical species.
+
+Species contributions reconcile with the described
+area to floating-point precision.
+
+#### Evidence age
+
+Among described provincial forest area:
+
+- PHOTOYR 2003: 75.81%.
+- PHOTOYR 1992: 14.49%.
+- Both years combined: 90.29%.
+
+PHOTOYR records the inventory's year of forest-attribute
+collection, subject to documented field conventions.
+
+All described-area PHOTOYR values in this comparison
+precede the 2023 Westwood Hills fire.
+
+High compositional coverage does not imply that the
+forest conditions remain unchanged.
+
+#### Interpretation and limitations
+
+The provincial evidence describes a mixture dominated
+by red spruce, balsam fir, black spruce, red maple,
+and a combined red/black spruce category.
+
+This composition raises a substantive question about
+the local ecological representativeness of the C-4
+and C-2 national fuel-model assignments.
+
+However, species composition alone is insufficient
+to establish the correct FBP fuel model. Stand age,
+structure, surface fuels, disturbance history and
+other characteristics may also matter.
+
+The provincial inventory is not treated as ground
+truth or as necessarily independent of national
+source information.
+
+No fire-behaviour or exposure consequences have yet
+been calculated for this transition.
+
+#### Next investigation
+
+Examine how the recorded composition varies among
+individual disagreement locations rather than
+treating the entire C-4 to C-2 footprint as one stand.
+
+Maintain separate accounts of:
+- Fuel-map classification disagreement.
+- Provincial composition and observation age.
+- Model applicability and eventual exposure sensitivity.

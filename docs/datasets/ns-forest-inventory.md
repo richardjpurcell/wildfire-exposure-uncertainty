@@ -84,9 +84,38 @@ including SP1-SP4 and SP1P-SP4P.
 Land classification and forest/non-forest
 attributes are also documented.
 
-Exact coding, missing-value conventions, and
-species-percentage scaling must be verified
-before analysis.
+The official provincial attribute reference confirms
+that SP1-SP4 record up to four species codes and
+SP1P-SP4P record their percentage contributions
+in tenths (1 = 10%, 10 = 100%).
+
+Selected verified species codes:
+
+| Code | Provincial description |
+|---|---|
+| RS | Red spruce |
+| BF | Balsam fir |
+| BS | Black spruce |
+| RM | Red maple |
+| XS | Red and black spruce mixed stand, not a hybrid |
+| UC | Unclassified species |
+
+XS is a combined species category and must not be
+silently divided into separate red- and black-spruce
+contributions. UC must not be treated as an identified
+botanical species.
+
+The provincial reference defines PHOTOYR as the
+year forest attributes were collected, with zero
+used for depletion information from satellite imagery.
+
+Reference: *Nova Scotia Interpreted Forest Inventory -
+Current Forest Data*, web version 2021, attribute
+descriptions and species coding (official source above).
+
+Remaining questions include the treatment of individual
+missing-value conventions and the observation history
+of particular polygons.
 
 ## Westwood Hills considerations
 
@@ -121,7 +150,7 @@ automatically be treated as ground truth.
 - Download edition and acquisition date
 - Polygon-level observation or update dates
 - Availability of historical inventory versions
-- Species-code definitions and proportion scaling
+- Verify additional species-code and missing-value conventions
 - Land-class and missing-data codes
 - Treatment of the 2023 burned area
 - CRS and geometry validation
