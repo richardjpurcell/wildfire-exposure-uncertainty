@@ -2084,3 +2084,72 @@ A later presentation-oriented version may tighten margins and styling.
 
 Next:
 identify concentrated disagreement zones and summarize their dominant paired transitions.
+
+### D06 — Geographic registration screening (2026-10-26)
+
+**Status:** Preliminary screening completed; source registration
+question remains open.
+
+#### Source registration qualification
+
+An informal report raised the possibility of a geographic
+registration issue in earlier FBP products. This has not
+been independently verified and is not used to explain
+the observed classification differences.
+
+#### Prior processing validation
+
+D05 independently verified that all 40,000 aligned 2024
+raster cells reproduce the native source classification
+at corresponding output-cell centres.
+
+This validates the transformation procedure, not the
+geographic correctness of the source classifications.
+
+#### D06.11 water registration screening
+
+Compared 2024 and 2026 water classifications (code 102)
+under translations of up to ten 100 m cells in each direction.
+
+All 441 comparisons used the same central 180 × 180-cell region.
+
+Results:
+- Current alignment Jaccard similarity: 0.8408538
+- Highest-scoring translation: dx=0, dy=0
+- Second-highest similarity: 0.7004520
+- No tested translation improved water overlap
+
+This supports the current water-feature registration within
+the study region, but does not exclude geographic distortion
+of the underlying forest-source evidence.
+
+Rotation and nonlinear deformation were not tested.
+
+#### D06.10 maximum-density neighbourhood
+
+Cell 7313 has 121 of 121 cells with different analytical
+family assignments in its 11 × 11 neighbourhood.
+
+Dominant paired classifications:
+- 2024 code 105 to 2026 code 13: 114 cells
+- 2024 code 2 to 2026 code 13: 4 cells
+- 2024 code 105 to 2026 code 101: 2 cells
+- 2024 code 4 to 2026 code 13: 1 cell
+
+This is predominantly a special-vegetation classification
+difference, not a conifer-to-mixedwood disagreement.
+
+#### Interpretation
+
+The published D06 disagreement percentages remain valid
+descriptions of the two aligned raster products.
+
+They must not be interpreted as measured landscape change,
+map accuracy, or differences caused solely by classification
+rules.
+
+#### Next
+
+Seek independent geographic control or authoritative
+confirmation of the reported registration issue before
+attributing spatial disagreement to particular causes.
