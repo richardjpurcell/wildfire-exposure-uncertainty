@@ -307,9 +307,84 @@ The detailed methods, numerical checks, figures, and
 limitations are documented in the
 [D10 directional visualization record](docs/d10_directional_visualization.md).
 
-The next experiment will examine changes in directional
-conclusions when the fuel representation changes while
-the analytical thresholds remain fixed.
+D11 extends this assessment by holding the directional
+geometry and thresholds fixed while changing the
+interpretation of unresolved fuel information.
+
+### D11 - Directional sensitivity to unresolved fuel classification
+
+D11 examines whether the directional conclusions from
+Westwood Hills remain stable when unresolved landscape
+information is assigned an alternative interpretation.
+
+Both scenarios use the 2026 FBP candidate representation,
+the same 100 m grid, and exposure calculated with
+`fire_exp()` at a 500 m transmission distance.
+
+Recognized vegetation and explicit non-fuel retain their
+original assignments. Only unresolved FBP code 13 changes:
+
+- **Reference:** unresolved code 13 assigned 0.
+- **Alternative:** unresolved code 13 assigned 1.
+
+The directional assessment holds constant the Westwood
+Hills reference point, all 108 directional geometries,
+the exposure threshold of 0.60, and the viability
+threshold of 0.80.
+
+#### Directional classification sensitivity
+
+![Directional classification sensitivity to unresolved fuel representation](outputs/figures/d11_classification_sensitivity.png)
+
+*Figure. Amber identifies the 16 segments changing from
+nonviable to viable under the alternative unresolved-code
+assignment. Grey identifies the 92 segments whose binary
+classification remains unchanged. The figure uses the
+same geographic extent and directional geometry as D10.*
+
+The verified results are:
+
+| Classification | Reference | Alternative |
+| --- | ---: | ---: |
+| Viable segments | 42 | 58 |
+| Nonviable segments | 66 | 50 |
+
+Of the 108 segments:
+
+- **16 (14.8%) changed classification.**
+- **92 retained their classification.**
+- **No segments changed from viable to nonviable.**
+
+Ten of the 16 changes occurred in the nearest directional
+segment, four in the middle segment, and two in the outer
+segment.
+
+The mean increase in high-exposure directional support
+was 0.141960, although a change in continuous support
+does not necessarily change the binary classification.
+
+The D11 calculations reproduced all 108 baseline
+classifications, matched all 108 directional geometries,
+and agreed with the package classifications under the
+alternative assignment.
+
+**The finding is sensitivity to unresolved fuel
+representation, not evidence that the alternative
+classification is more accurate or that any direction
+is safer.**
+
+The two scenarios are hypothetical binary interpretations,
+not validated fire-transmission classifications.
+Complete exposure-raster coverage does not establish
+completeness of the underlying landscape evidence.
+
+D10 demonstrates sensitivity to analytical thresholds.
+D11 demonstrates sensitivity to an input classification
+assumption while those thresholds remain fixed.
+
+The experiment, numerical verification, rendering
+method, and limitations are recorded in the
+[D11 experiment entries](docs/experiment-log.md).
 
 ### Synthetic methodology findings
 

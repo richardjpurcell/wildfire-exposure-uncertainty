@@ -3728,3 +3728,256 @@ documented in `docs/d10_directional_visualization.md`.
 
 Further work will assess sensitivity to alternative
 fuel representations.
+
+## D11.2A — Directional sensitivity to unresolved fuel classification
+
+**Date:** 2026-10-26
+**Status:** Completed and independently verified
+
+### Purpose
+
+Evaluate how directional classifications at Westwood Hills
+depend on the treatment of unresolved fuel information,
+while holding directional geometry and decision thresholds
+constant.
+
+This is a deterministic sensitivity experiment, not a
+wildfire prediction or operational safety assessment.
+
+### Input representations
+
+Two complete exposure surfaces from D09 were compared:
+
+- Reference: `d09_reference_exposure_2026_500m.tif`
+- Upper: `d09_upper_exposure_2026_500m.tif`
+
+Both use the 2026 FBP candidate raster, a 100 m grid,
+and `fire_exp()` with a 500 m transmission distance.
+
+Recognized vegetation is assigned 1 and explicit
+water/non-fuel is assigned 0.
+
+The only changed assignment is unresolved FBP code 13:
+
+- Reference: code 13 assigned 0.
+- Upper: code 13 assigned 1.
+
+There are 1,326 unresolved cells among 40,000 input cells
+(3.32%).
+
+These are hypothetical binary fuel interpretations,
+not validated fire-transmission classifications.
+
+### Fixed directional configuration
+
+- Reference point: Westwood Hills.
+- CRS: EPSG:3978.
+- Bearings: 36, spaced at 10-degree intervals.
+- Three successive nominal 2 km segments per bearing.
+- Actual `fire_exp_dir()` geometries retained.
+- Exposure threshold: 0.60.
+- Viability threshold: 0.80.
+- Total directional segments: 108.
+
+Directional viability is based on the proportion of
+segment length meeting the exposure threshold.
+
+### Verified results
+
+Reference classification:
+
+- 42 viable segments.
+- 66 nonviable segments.
+
+Upper classification:
+
+- 58 viable segments.
+- 50 nonviable segments.
+
+Classification transitions:
+
+- 42 stable viable.
+- 50 stable nonviable.
+- 16 newly viable.
+- 0 no longer viable.
+
+The 16 changed classifications represent 14.8% of the
+108 directional segments.
+
+Newly viable classifications by distance segment:
+
+- Segment 1: 10.
+- Segment 2: 4.
+- Segment 3: 2.
+
+Change in high-exposure directional support:
+
+- Minimum: 0.
+- Mean: 0.141960.
+- Maximum: 1.
+
+### Verification
+
+The maintained script independently recalculates
+directional classifications against both exposure surfaces.
+
+Verification established:
+
+- Identical matched directional geometries: 108/108.
+- Reference classifications reproduced: 108/108.
+- Upper package/reconstruction agreement: 108/108.
+- Reference viable count: 42.
+- Upper viable count: 58.
+- Classification changes: 16.
+- No directional-support decreases beyond numerical tolerance.
+- Independent CSV verification: PASSED.
+
+The reference and upper exposure rasters share a common
+grid, extent, resolution, and coordinate reference system.
+
+### Reproducibility
+
+Maintained experiment:
+
+`scripts/d11_directional_fuel_representation.R`
+
+Segment-level output:
+
+`outputs/tables/d11_directional_fuel_representation.csv`
+
+The CSV preserves directional identifiers, calculated
+support fractions, changes in support, decision margins,
+and classifications under both assignments.
+
+### Interpretation
+
+Changing the treatment of a relatively small unresolved
+input category altered 16 directional classifications
+without changing the assessment geometry or thresholds.
+
+The result demonstrates that a categorical directional
+assessment can depend on assumptions about underlying
+landscape evidence.
+
+It does not establish which fuel interpretation is
+physically correct or which direction is safe.
+
+### Limitations
+
+- The binary vegetation representation is experimental.
+- The 500 m exposure surface is a calculated neighbourhood
+  proportion, not a wildfire probability.
+- Viability thresholds are methodological examples.
+- The comparison varies unresolved-code treatment only.
+- It is not a 2024-versus-2026 FBP edition comparison.
+- Complete exposure-raster coverage does not establish
+  completeness of the underlying landscape evidence.
+- The observed sensitivity is conditional on this location,
+  representation, geometry, and threshold configuration.
+
+### Next step
+
+Develop a paired directional visualization distinguishing
+stable classifications from classifications that change
+under the unresolved-code assignment.
+
+Verify the visualization against the segment-level CSV
+before incorporating the findings into the README.
+
+## D11.3 — Directional classification sensitivity visualization
+
+**Date:** 2026-10-26
+**Status:** Initial visualization rendered and structurally verified
+
+### Purpose
+
+Visualize the geographic distribution of directional
+classification changes established in D11.2A.
+
+The figure emphasizes sensitivity to unresolved input
+classification rather than calculated viability itself.
+
+### Geographic design
+
+The visualization retains the D10 conventions:
+
+- Westwood Hills reference point.
+- EPSG:3978 projection.
+- 14 x 14 km viewing extent.
+- Grayscale OpenStreetMap basemap.
+- 36 bearings and three successive directional segments.
+- Actual geometries returned by `fire_exp_dir()`.
+- Approximate distance rings at 2, 4, and 6 km.
+
+### Classification representation
+
+The figure distinguishes:
+
+- 16 segments changing from nonviable to viable,
+  highlighted in amber.
+- 92 segments retaining their original classification,
+  shown in subdued grey.
+
+The reference exposure threshold remains 0.60 and
+the viability threshold remains 0.80.
+
+Only the interpretation of unresolved 2026 FBP
+code 13 changes between the compared scenarios.
+
+### Verification
+
+The renderer checks correspondence with the verified
+D11.2A segment-level results.
+
+The revised PNG was independently checked:
+
+- Dimensions: 2000 x 2000 pixels.
+- PNG structure and chunk checksums: PASSED.
+- Associated CSV: 108 directional segments.
+- Changed classifications: 16.
+- Unchanged classifications: 92.
+
+The initial rendering was visually inspected.
+The subsequent label refinements passed syntax and
+structural checks; final visual confirmation remains.
+
+### Reproducibility
+
+Renderer:
+
+`scripts/d11_render_classification_sensitivity.R`
+
+Figure:
+
+`outputs/figures/d11_classification_sensitivity.png`
+
+Analytical source:
+
+`outputs/tables/d11_directional_fuel_representation.csv`
+
+The rendering uses the existing D10 OpenStreetMap
+basemap configuration and local tile cache.
+
+### Interpretation and limitations
+
+The map identifies where calculated directional
+classifications depend on the unresolved-code assignment.
+
+It does not identify safer directions, predict wildfire
+spread, or establish which fuel assignment is correct.
+
+Stable classifications do not imply complete or
+reliable underlying landscape evidence.
+
+The visualization does not distinguish stable viable
+from stable nonviable segments. Those categories remain
+available in the accompanying CSV and D10 baseline map.
+
+### Next step
+
+Review the revised figure labels and integrate the
+verified D11 findings into the README.
+
+Consider a separate continuous support-change
+visualization if it adds information beyond the
+binary transition map.
