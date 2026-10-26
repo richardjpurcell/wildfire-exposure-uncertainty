@@ -1513,3 +1513,84 @@ Nova Scotia provincial forest inventory.
 Keep unavailable evidence, unclassified vegetation,
 non-fuel land, and classified fuels distinct before
 constructing empirical exposure scenarios.
+
+## 2026-10-26 — Provincial forest area and raster alignment
+
+### Objective
+
+Validate the spatial area calculations used to align Nova Scotia
+provincial forest inventory polygons with the 2026 federal FBP
+100 m study grid.
+
+### Study data
+
+- Reference raster: 200 x 200 cells at 100 m nominal resolution.
+- Provincial inventory: Halifax West forest polygons.
+- Forested land definition: `LNDCLASS = 99`.
+- Forested polygons intersecting the study window: 4,810.
+
+### Polygon geometry verification
+
+The sum of individual polygon areas agreed with their geometric
+union area to the reported precision, indicating no measurable
+overlapping forest-polygon area in the study window.
+
+### Area convention
+
+The reference grid uses EPSG:3978.
+
+Projected-coordinate cell area is approximately 1 hectare,
+but geographically corrected area differs because of map
+projection distortion.
+
+In `terra`, `expanse(..., transform = TRUE)` calculates
+geographically corrected area. Multiplying raster coverage
+fractions by projected cell dimensions uses planar grid area.
+
+These measurements must not be directly compared.
+
+### Raster-footprint comparison
+
+The forest polygons were intersected with the exact reference
+raster footprint.
+
+| Area convention | Exact geometry (ha) | Fractional raster (ha) | Difference (ha) |
+|---|---:|---:|---:|
+| Projected-coordinate | 25,173.41 | 25,182.02 | +8.61 |
+| Geographically corrected | 24,246.50 | 24,254.77 | +8.27 |
+
+The remaining difference is approximately 0.034% of the
+exact area under either convention.
+
+Rasterizing the individual polygons and their dissolved
+union produced identical fractional coverage results.
+
+### Interpretation
+
+The initial apparent discrepancy of approximately 887 ha
+arose primarily from comparing different area conventions.
+
+Fractional rasterization closely reproduces the geometric
+forest area when the measurement convention and spatial
+footprint are consistent.
+
+### Limitations
+
+- Fractional raster coverage remains an approximation.
+- Coverage is distinct from attribute reliability.
+- These results validate forest footprint representation,
+  not provincial-to-federal fuel classification agreement.
+- Subsequent evidence-category area calculations should
+  use a consistent area convention and preserve
+  fractional coverage at category boundaries.
+
+### Next step
+
+Construct provincial evidence-status coverage layers on
+the federal 100 m grid, distinguishing named species,
+explicitly unclassified species, and absent first-story
+species descriptions.
+
+Retain clear-cut and other mapped disturbance classifications
+rather than treating all absent species descriptions as
+missing observations.
