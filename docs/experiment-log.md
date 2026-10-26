@@ -2421,3 +2421,149 @@ Examine spatially localized differences in:
 
 Identify contrasting locations suitable for
 a paired exposure and uncertainty demonstration.
+
+### D07.10 — Spatially localized provincial evidence (2026-10-26)
+
+**Status:** Reproducible neighbourhood evidence summary completed;
+local demonstration locations remain provisional.
+
+#### Purpose
+
+Examine geographical variation in provincial inventory evidence
+within the 2024 C-4 to 2026 C-2 disagreement footprint.
+
+Distinguish national classification disagreement, provincial
+species composition, evidence completeness, and evidence dates.
+
+#### Reproducible implementation
+
+Script: `scripts/d07_neighbourhood_evidence.R`
+
+Output: `outputs/tables/d07_neighbourhood_evidence.csv`
+
+The established 200 x 200-cell study grid is partitioned into
+100 non-overlapping 2 x 2 km neighbourhoods.
+
+Provincial evidence is evaluated only where forest polygons
+intersect the 3,568 C-4 to C-2 disagreement cells.
+
+Species and completeness measurements are weighted by exact
+polygon-intersection area.
+
+#### Spatial structure
+
+Eight-neighbour connectivity identified 1,321 disagreement
+components. Of the 3,568 disagreement cells, 49.72% belong
+to components of four cells or fewer.
+
+The largest component contains 130 cells (3.64%).
+
+The 2 km neighbourhood partition therefore provides a more
+useful initial comparison unit than individual components.
+
+Of 100 neighbourhoods, 97 contain disagreement cells.
+The median count is 34, and the maximum is 91.
+
+Across the footprint:
+
+- Provincial forest intersection: 3,040.746 ha.
+- Described first-story forest: 2,834.208 ha.
+- Neighbourhoods with at least 20 ha described forest: 59.
+- Neighbourhoods with description completeness below 80%: 7.
+
+The 20 ha criterion is exploratory, not a statistical
+or ecological threshold.
+
+#### Regional evidence contrasts
+
+Neighbourhood 98:
+
+- 77 disagreement cells.
+- BS first-listed across 99.27% of described area.
+- Leading component at most 50% across 10.46%.
+- Complete first-story descriptions.
+- Recorded PHOTOYR values: 2002 and 2003.
+
+Neighbourhood 40:
+
+- 76 disagreement cells.
+- BF first-listed across 34.93% of described area.
+- Leading component at most 50% across 86.59%.
+- Description completeness: 98.30%.
+- Recorded PHOTOYR values: 1992 and 2003.
+
+Neighbourhood 71:
+
+- 84 disagreement cells.
+- Description completeness: 67.60%.
+- Recorded PHOTOYR values within described area:
+  1992, 2003, 2005 and 2006.
+
+These are contrasts in recorded inventory evidence,
+not demonstrations of classification accuracy.
+
+#### Local reference neighbourhoods
+
+Westwood Hills reference point lies in neighbourhood 35:
+
+- 31 disagreement cells.
+- Provincial forest intersection: 20.175 ha.
+- Described area: 19.342 ha.
+- Description completeness: 95.87%.
+- Most common first-listed species: RS (46.56%).
+- Multiple recorded components: 93.17%.
+- Leading component at most 50%: 33.70%.
+- Recorded PHOTOYR values: 1992 and 2003.
+
+Upper Tantallon reference point lies in neighbourhood 56:
+
+- 25 disagreement cells.
+- Provincial forest intersection: 23.578 ha.
+- Description completeness: 100%.
+- Most common first-listed species: BS (66.85%).
+- Multiple recorded components: 99.50%.
+- Leading component at most 50%: 65.48%.
+- Recorded PHOTOYR values: 1992 and 2003.
+
+Neighbourhood 35 is retained as a local reference despite
+falling slightly below the exploratory 20 ha described-area
+criterion.
+
+#### Interpretation and limitations
+
+The disagreement footprint contains geographically varying
+provincial evidence, including differences in first-listed
+species, component proportions, description completeness,
+and recorded inventory years.
+
+The share of area with a particular first-listed species
+must not be interpreted as the average proportion of that
+species within stands.
+
+Multiple species components do not necessarily indicate
+a softwood-hardwood mixture or an FBP mixedwood fuel type.
+
+PHOTOYR indicates historical inventory evidence, not
+verified present-day forest condition.
+
+The provincial inventory is not automatically ground truth
+and may share underlying evidence with national products.
+
+These measurements do not establish which FBP edition
+is more accurate or whether exposure estimates differ.
+
+#### Next investigation
+
+Compare neighbourhoods near Westwood Hills using the
+maintained CSV, rather than selecting only the most
+extreme regional examples.
+
+Verify softwood/hardwood species-code groupings before
+adding composition-family indicators.
+
+Select contrasting local candidates and assess whether
+the national classification differences produce meaningful
+changes in estimated exposure.
+
+No new exposure calculations or maps have been performed
+in D07.10.
