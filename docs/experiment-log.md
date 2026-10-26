@@ -1721,3 +1721,98 @@ Visualize the provincial evidence categories on the common
 Use the validated coverage layers to examine the spatial
 relationship between evidence availability, provincial
 forest classifications, and federal FBP fuel categories.
+
+### D03 visualization — provincial evidence and federal comparison
+
+Two complementary visualizations were generated from the
+validated 100 m evidence-coverage layers.
+
+#### Provincial evidence coverage
+
+The three-panel figure displays:
+
+A. Named species composition.
+B. Explicitly unclassified species.
+C. No first-story species description.
+
+All panels use the same spatial extent and fractional
+coverage scale from zero to one.
+
+The figure demonstrates that provincial inventory evidence
+varies spatially in type, not merely in presence or absence.
+
+#### Federal–provincial comparison
+
+The four-panel figure displays:
+
+A. Federal 2026 FBP fuel classifications, grouped into
+   seven broad display families.
+B. Provincial named-species coverage.
+C. Provincial explicitly unclassified-species coverage.
+D. Provincial no-first-story-description coverage.
+
+The federal display families are:
+
+- Conifer FBP: C-1 through C-4.
+- Mixedwood FBP: 25%, 50%, and 75% conifer categories.
+- Deciduous FBP: D-1.
+- Grass FBP: O-1a.
+- Non-fuel.
+- Water.
+- Vegetated area without an effective FBP match.
+
+These groupings are used only for presentation. The original
+12 numerical codes and their documented interpretations
+remain unchanged.
+
+#### Interpretation
+
+The figures provide a common spatial reference for comparing
+federal fuel classification with provincial species-evidence
+availability.
+
+They identify locations suitable for subsequent investigation,
+particularly where the federal map assigns a fuel type while
+the provincial inventory records unclassified species or no
+first-story species description.
+
+Such locations do not necessarily represent classification
+errors or contradictions. The products have different sources,
+purposes, and classification conventions.
+
+White areas in the provincial panels mean zero coverage by
+the particular evidence category shown. They do not
+necessarily indicate missing inventory coverage, nonforest,
+or low wildfire exposure.
+
+No uncertainty score or exposure estimate is derived from
+these visualizations.
+
+#### Reproducible artifacts
+
+Scripts:
+
+- `scripts/plot_d03_provincial_evidence.R`
+- `scripts/plot_d03_federal_provincial_comparison.R`
+
+Figures:
+
+- `outputs/figures/d03_provincial_evidence_coverage.png`
+- `outputs/figures/d03_federal_provincial_comparison.png`
+
+#### Next investigation
+
+Quantify the spatial relationships between federal FBP fuel
+families and provincial evidence-status categories.
+
+Use fractional provincial coverage within each federal raster
+cell rather than treating all intersecting cells as fully
+covered.
+
+Preserve distinctions among named species, explicitly
+unclassified species, mapped disturbance, and absence of
+first-story descriptions.
+
+The objective is to identify differences in available
+evidence and representation, not to assume that either
+dataset provides ground truth.
