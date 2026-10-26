@@ -83,26 +83,81 @@ We will distinguish evidence disagreement, numerical sensitivity, decision-margi
 
 ## Project status
 
-**Stage: Synthetic methodology validation completed; landscape-data review next**
+**Stage: Synthetic methodology validation complete; 2026 federal–provincial landscape evidence comparison completed through D04.**
 
-Synthetic experiments E01–E07 have established and tested
-methods for reconstructing directional exposure support,
-examining classification transitions, evaluating analytical
-threshold sensitivity, and measuring evidence coverage.
+Synthetic experiments E01–E07 established methods for examining
+directional exposure support, threshold sensitivity, and evidence
+coverage.
 
-E07 combines baseline exposure, threshold-grid viability,
-and evidence coverage on the same synthetic landscape.
-Its integrated visualization is available below.
+D01–D04 established the study grid, documented 2026 FBP fuel
+classifications, characterized provincial evidence coverage, and
+examined spatial relationships between federal and provincial
+landscape representations.
 
-The next phase will examine the provenance, classifications,
-resolution, and spatial coverage of the 2019, 2024, and 2026
-federal FBP fuel maps and the Nova Scotia provincial forest
-inventory.
+The 2019 and 2024 FBP comparisons remain planned.
 
-No new empirical exposure findings for Westwood Hills /
-Upper Tantallon have yet been produced within this project.
+No empirical wildfire exposure assessment has yet been completed
+within this project.
 
 ## Findings
+
+### Empirical landscape evidence findings
+
+**D03 — Provincial forest evidence coverage**
+
+Provincial forest inventory information was aligned to the
+2026 federal FBP study grid using fractional coverage at
+100 m resolution.
+
+The analysis distinguishes named species descriptions,
+explicitly unclassified species (`UC10`), missing first-story
+descriptions, and a clear-cut subset.
+
+These categories describe mapped evidence availability,
+not its accuracy or current validity.
+
+**D04 — Federal Non-fuel and provincial forest descriptions**
+
+The 2026 federal FBP raster contains 3,438 Non-fuel cells
+(code 101), overlapping approximately 1,315.66 ha of
+provincially mapped forest.
+
+Of these, 850 cells have at least 90% provincial forest
+coverage. Their vector intersections contain 813.37 ha
+of provincial forest descriptions.
+
+Within this area:
+
+- **88.77%** has named species descriptions.
+- **3.98%** is explicitly unclassified (`UC10`).
+- **7.25%** lacks a first-story species description.
+- **77.38%** has `PHOTOYR = 2003`.
+- **21.21%** has `PHOTOYR = 1992`.
+
+The vector and raster forest-area estimates differ by
+approximately 0.044%.
+
+![Provincial photograph years within federal Non-fuel cells](outputs/figures/d04_nonfuel_photo_year_map.png)
+
+*Provincial photograph years within the 850 qualifying
+federal Non-fuel cells. Colours represent the actual
+provincial polygon intersections, not assignments to
+entire federal cells.*
+
+**Interpretation:** The federal and provincial products
+provide different mapped descriptions of some of the same
+locations. Most of the provincial forest area in the
+qualifying subset has named species descriptions, but
+the underlying photography is predominantly dated
+1992 and 2003.
+
+This does not establish that either classification is
+incorrect. Classification purpose, source evidence,
+observation dates, and update histories may differ.
+`PHOTOYR` does not establish forest condition in 2026.
+
+Detailed results and limitations are documented in the
+[experiment log](docs/experiment-log.md).
 
 ### Synthetic methodology findings
 

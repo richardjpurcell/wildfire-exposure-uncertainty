@@ -1816,3 +1816,97 @@ first-story descriptions.
 The objective is to identify differences in available
 evidence and representation, not to assume that either
 dataset provides ground truth.
+
+## D04 — Federal 2026 FBP vs provincial forest evidence cross-tabulation
+
+**Status:** Completed (analysis and figure generation complete; commit pending)
+
+### Objective
+Quantify how federal 2026 FBP fuel families intersect provincial forest evidence coverage, then examine the subset of federal **Non-fuel** cells that are at least 90% covered by provincially mapped forest.
+
+### Inputs
+- Federal raster: `data/processed/study-window/fbp_2026_candidate_100m.tif`
+- Provincial evidence rasters from D03:
+  - `data/processed/provincial-evidence/named_species_100m.tif`
+  - `data/processed/provincial-evidence/unclassified_species_100m.tif`
+  - `data/processed/provincial-evidence/no_first_story_description_100m.tif`
+  - `data/processed/provincial-evidence/clearcut_no_description_100m.tif`
+- Provincial vector source:
+  - `data/raw/ns-forest-inventory/halifax-west/forest.shp`
+
+### Methods
+1. Performed an area-weighted cross-tabulation between federal FBP fuel families and provincial forest evidence coverage.
+2. Identified federal **Non-fuel** cells (`code 101`) with at least 90% provincial forest coverage.
+3. Reconstructed those qualifying cells as polygons and intersected them with the provincial forest inventory polygons (`LNDCLASS = 99`).
+4. Summarized `SPECIES`, `PHOTOYR`, and `FORNON` within the qualifying cells using **intersection area in hectares** as weights.
+5. Generated a map of provincial `PHOTOYR` categories within the qualifying federal Non-fuel cells.
+
+### Main findings
+
+#### D04 overall cross-tabulation
+- The cross-tabulation accounted for all **40,000** federal cells.
+- Total provincially classified forest coverage in the study window: **24,254.77 ha**.
+
+#### Federal Non-fuel cells
+- Federal Non-fuel cells: **3,438**
+- Provincial forest area within federal Non-fuel cells: **1,315.66 ha**
+- Federal Non-fuel cells with at least 90% provincial forest coverage: **850**
+- Total area of those 850 cells: **818.8119 ha**
+- Provincial forest coverage within those 850 cells:
+  - Raster-derived estimate: **813.7256 ha**
+  - Vector-intersection estimate: **813.3697 ha**
+  - Difference: **-0.3558 ha** (**-0.0437%**)
+
+#### Provincial evidence composition within the 850 qualifying Non-fuel cells
+- Named species: **722.017 ha** (**88.77%**)
+- Explicitly unclassified species (`UC10`): **32.386 ha** (**3.98%**)
+- No first-story description: **58.966 ha** (**7.25%**)
+
+#### Provincial photograph years within the 850 qualifying Non-fuel cells
+- `PHOTOYR 2003`: **629.357 ha** (**77.38%**)
+- `PHOTOYR 1992`: **172.514 ha** (**21.21%**)
+- Other `PHOTOYR` values combined: **11.499 ha** (**1.41%**)
+
+#### Relationship between photograph year and evidence status
+- All **1992** area in this subset had **named species descriptions**.
+- The **2003** area included:
+  - **547.140 ha** named species
+  - **32.386 ha** `UC10`
+  - **49.831 ha** with no first-story description
+
+#### FORNON within the 850 qualifying Non-fuel cells
+- `FORNON = 0`: **745.015 ha** (**91.60%**)
+- `FORNON = 60`: **50.649 ha** (**6.23%**)
+- All other `FORNON` values combined: **17.706 ha** (**2.18%**)
+
+#### Missing species descriptions and clear-cut association
+- Area with no first-story species description: **58.966 ha**
+- Of that, area with `FORNON = 60`: **50.649 ha**
+
+### Figure
+- `outputs/figures/d04_nonfuel_photo_year_map.png`
+
+### Interpretation
+The federal 2026 FBP **Non-fuel** class has a substantial spatial association with provincially mapped forest evidence, including many cells that are almost entirely provincially forest-covered. Most of that provincial evidence has named species descriptions rather than missing or explicitly unclassified species codes.
+
+At the same time, the provincial evidence in those cells is dominated by `PHOTOYR` values from **1992** and **2003**. This supports the broader project concern that apparent classification disagreement should not be interpreted without attention to the age, source, and representational purpose of the evidence being compared.
+
+### Limitations
+- This analysis does **not** establish that either dataset is correct.
+- Federal and provincial products may differ in classification purpose, update cycle, minimum mapping unit, and source evidence.
+- `PHOTOYR` refers to recorded source photography year and should not be treated as equivalent to forest condition in 2026.
+- The D04 cross-tabulation used fractional raster evidence layers, while the detailed D04 subset analysis used vector intersections. Their close agreement supports consistency, but the two methods are not identical.
+- Provincial subset analysis was restricted to polygons with `LNDCLASS = 99`, matching the D03 evidence-construction rule.
+
+### Outputs and scripts created
+- `outputs/d04_fbp_provincial_evidence_cross_tab.csv`
+- `outputs/figures/d04_nonfuel_photo_year_map.png`
+- `scripts/d04_fbp_provincial_cross_tab.R`
+- `scripts/d04_qualifying_nonfuel_cells.R`
+- `scripts/d04_nonfuel_polygon_intersection.R`
+- `scripts/d04_nonfuel_attribute_summary.R`
+- `scripts/d04_nonfuel_photo_year_analysis.R`
+- `scripts/d04_nonfuel_photo_year_map.R`
+
+### Next step
+Condense the D04 results into the root `README.md`, then review the D04 scripts for possible consolidation before committing the new analysis outputs and figure.
