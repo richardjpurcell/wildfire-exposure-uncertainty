@@ -33,7 +33,7 @@ for path in files:
 
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 
-with OUTPUT.open("w", newline="") as stream:
+with OUTPUT.open("w", newline="\n") as stream:
     writer = csv.DictWriter(
         stream,
         fieldnames=["relative_path", "size_bytes", "sha256"],

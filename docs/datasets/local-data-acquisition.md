@@ -1,7 +1,7 @@
 # Local Data Acquisition Record
 
-**Date:** 2026-10-26  
-**Study:** Westwood Hills / Upper Tantallon, Nova Scotia  
+**Date:** 2026-10-26
+**Study:** Westwood Hills / Upper Tantallon, Nova Scotia
 **Status:** Local copies verified; original distribution provenance partially unresolved
 
 ## Acquisition
