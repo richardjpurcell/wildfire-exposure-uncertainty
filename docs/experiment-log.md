@@ -1911,3 +1911,28 @@ diagnostic scripts remain available in Git history.
 
 ### Next step
 Condense the D04 results into the root `README.md`, then review the D04 scripts for possible consolidation before committing the new analysis outputs and figure.
+
+### D05 — 2024 FBP aligned raster verification (2026-10-26)
+
+**Status:** Completed
+
+The 2024 FBP source raster was cropped in its native CRS
+and aligned to the existing 200 × 200 cell 2026 study grid
+using nearest-neighbour categorical transformation.
+
+Output:
+`data/processed/study-window/fbp_2024_aligned_100m.tif`
+
+Verification:
+- Geometry matches the 2026 study raster.
+- All 40,000 cells contain recognized 2024 classifications.
+- Independent extraction from the national 2024 raster
+  matched all 40,000 aligned cell classifications.
+- Zero mismatches or missing values.
+
+The source remains unchanged. The derived GeoTIFF is
+excluded from Git.
+
+Next: paired 2024–2026 classification comparison with
+version-specific code meanings and explicit uncertainty
+about source and representation differences.
