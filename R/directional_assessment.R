@@ -38,15 +38,19 @@ directional_assessment <- function(
   )
 
   # Undefined when the segment has no observed evidence.
+  # Suppress ratios formed from negligible intersection lengths.
+  # This is a numerical tolerance, not an evidence-sufficiency rule.
+  coverage_tolerance <- 1e-8
+
   result$observed_support <- ifelse(
-    result$observed_length_m > 0,
+    result$coverage_fraction > coverage_tolerance,
     result$high_length_m / result$observed_length_m,
     NA_real_
   )
 
   # Useful distinction for downstream reporting.
   result$evidence_status <- ifelse(
-    result$coverage_fraction <= 1e-8,
+    result$coverage_fraction <= coverage_tolerance,
     "missing",
     ifelse(
       result$coverage_fraction >= 1 - 1e-8,

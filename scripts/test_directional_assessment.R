@@ -110,3 +110,27 @@ stopifnot(
 )
 
 cat("\nIntegrated directional assessment: PASSED\n")
+
+# Regression check: negligible observed length must not
+# produce a meaningful observed-only support ratio.
+
+negligible_case <- data.frame(
+  coverage_fraction = 6.857583092e-10,
+  observed_length_m = 1.371037190e-06,
+  high_length_m = 1.371037190e-06
+)
+
+coverage_tolerance <- 1e-8
+
+negligible_case$observed_support <- ifelse(
+  negligible_case$coverage_fraction > coverage_tolerance,
+  negligible_case$high_length_m /
+    negligible_case$observed_length_m,
+  NA_real_
+)
+
+stopifnot(
+  is.na(negligible_case$observed_support)
+)
+
+cat("\nNegligible-coverage numerical rule: PASSED\n")
