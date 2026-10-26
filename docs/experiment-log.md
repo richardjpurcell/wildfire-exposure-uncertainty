@@ -3404,3 +3404,189 @@ Prepare the spatial C-2/C-4 assumption-sensitivity
 surface from the maintained D08 framework.
 
 No maps were produced in this step.
+
+## D09.5 — Spatial C-2/C-4 assumption sensitivity
+
+**Date:** 2026-10-26
+**Status:** Completed; independently verified
+
+### Purpose
+
+Export spatially resolved versions of the corrected
+D08 C-2/C-4 hypothetical sensitivity experiment.
+
+The objective is to identify where the direction of
+the calculated exposure difference between the
+2024 and 2026 FBP editions depends on the treatment
+of C-2 and C-4.
+
+These scenarios are deliberately hypothetical.
+Neither is a validated physical wildfire
+transmission classification.
+
+### Scenario definitions
+
+Scenario A:
+
+- C-2 assigned 1.
+- C-4 assigned 0.
+
+Scenario B:
+
+- C-2 assigned 0.
+- C-4 assigned 1.
+
+Other recognized vegetation is assigned 1.
+Explicit water and non-fuel are assigned 0.
+
+Unresolved categories are varied between 0 and 1:
+
+- 2024 unresolved code: 105.
+- 2026 unresolved code: 13.
+
+The maintained D08 correction is preserved.
+Assertions independently verify the actual
+C-2 and C-4 assignments.
+
+### Exposure difference
+
+For both scenarios:
+
+`delta = exposure_2026 - exposure_2024`
+
+The lower bound is:
+
+`exposure_2026_unresolved_0 -
+ exposure_2024_unresolved_1`
+
+The upper bound is:
+
+`exposure_2026_unresolved_1 -
+ exposure_2024_unresolved_0`
+
+These are deterministic bounds over the tested
+unresolved assignments, not statistical intervals.
+
+### Robust opposing-sign criterion
+
+An assessment cell is classified as having robust
+opposing signs when the two scenario difference
+intervals have definite opposite signs.
+
+The maintained D08 tolerance is 1e-6.
+
+The classification indicates sensitivity in the
+comparison between editions.
+
+It is not a direct uncertainty estimate for the
+single 2026 reference exposure raster.
+
+### Verified study-wide results
+
+| Measurement | Result |
+|---|---:|
+| Valid assessment cells | 36,100 |
+| Scenario A mean delta lower | +0.04883934 |
+| Scenario A mean delta upper | +0.10722022 |
+| Scenario B mean delta lower | -0.18744183 |
+| Scenario B mean delta upper | -0.12906094 |
+| Robust opposing-sign cells | 19,436 |
+| Share of valid cells | 53.84% |
+
+The scenario assumptions produce opposite regional
+mean comparison directions across the tested
+unresolved-category bounds.
+
+This does not demonstrate actual environmental
+change or establish which FBP edition is correct.
+
+### Verified local results
+
+Each selected neighbourhood contains 400 valid
+assessment cells.
+
+| Block | Robust opposing-sign cells |
+|---|---:|
+| 35 (Westwood Hills) | 187 |
+| 34 | 166 |
+| 25 | 93 |
+| 24 | 175 |
+| 44 | 232 |
+| 33 | 108 |
+
+The geographic variation may be useful for selecting
+contrasting focal areas in the paired visualization.
+
+### Generated spatial products
+
+All files are located in:
+
+`data/processed/visualization/`
+
+- `d09_scenario_A_delta_lower_500m.tif`
+- `d09_scenario_A_delta_upper_500m.tif`
+- `d09_scenario_B_delta_lower_500m.tif`
+- `d09_scenario_B_delta_upper_500m.tif`
+- `d09_robust_opposing_sign_500m.tif`
+
+The four difference rasters preserve their signed
+exposure-comparison bounds.
+
+The fifth raster uses:
+
+- 1: robust opposing signs.
+- 0: other valid assessment cells.
+- NA: outside the valid assessment region.
+
+A zero does not necessarily indicate stability.
+It may include cases in which one or both
+difference intervals contain zero.
+
+### Maintained reproduction script
+
+`scripts/d09_export_conifer_sensitivity.R`
+
+The generated GeoTIFFs remain excluded from Git
+through the existing `/data/processed/` rule.
+
+### Verification
+
+The export script reproduced the maintained
+D08 global and selected-neighbourhood results.
+
+A separate read-only diagnostic confirmed:
+
+- Matching geometry for all five rasters.
+- Exactly 36,100 valid assessment cells.
+- Correct ordering of all difference bounds.
+- Reconstructed robust opposing-sign classification.
+- Exactly 19,436 robust opposing-sign cells.
+- Agreement with D08 global mean differences.
+- Agreement with all six selected D08 neighbourhoods.
+
+**Independent verification:** PASSED.
+
+### Implications for visualization
+
+The result supports a separate spatial depiction
+of assumption sensitivity in the comparison between
+the 2024 and 2026 representations.
+
+It should not be combined with the D09.4 unresolved
+classification sensitivity into an unexplained
+uncertainty score.
+
+Any map must explicitly distinguish:
+
+- the 2026 reference exposure;
+- unresolved-input sensitivity within that reference;
+- assumption sensitivity in the comparison of editions.
+
+No maps were produced in this step.
+
+### Next step
+
+Review the spatial products and determine the most
+interpretable design for Picture 2, including whether
+Westwood Hills should be paired with a contrasting
+neighbourhood.
