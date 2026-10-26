@@ -216,3 +216,210 @@ stopifnot(
 )
 
 cat("\nE07 negligible-coverage correction: PASSED\n")
+
+# E07: Threshold-grid viability on the partially observed landscape
+
+threshold_grid <- expand.grid(
+  thresh_exp = seq(0.40, 0.80, by = 0.05),
+  thresh_viable = seq(0.60, 0.95, by = 0.05)
+)
+
+grid_results <- vector("list", nrow(threshold_grid))
+
+for (i in seq_len(nrow(threshold_grid))) {
+
+  te <- threshold_grid$thresh_exp[i]
+  tv <- threshold_grid$thresh_viable[i]
+
+  directions_i <- fire_exp_dir(
+    exposure = exposure,
+    value = point,
+    t_lengths = c(2000, 2000, 2000),
+    interval = 10,
+    thresh_exp = te,
+    thresh_viable = tv
+  )
+
+  support_i <- directional_support(
+    exposure = exposure,
+    transects = directions_i,
+    thresh_exp = te,
+    thresh_viable = tv
+  )
+
+  original_i <- as.data.frame(directions_i)
+
+  comparison_i <- merge(
+    original_i[, c("deg", "seg", "viable")],
+    support_i,
+    by = c("deg", "seg")
+  )
+
+  stopifnot(
+    nrow(comparison_i) == 108,
+    all(comparison_i$viable ==
+        comparison_i$reconstructed_viable)
+  )
+
+  grid_results[[i]] <- data.frame(
+    deg = comparison_i$deg,
+    seg = comparison_i$seg,
+    thresh_exp = te,
+    thresh_viable = tv,
+    viable = comparison_i$viable
+  )
+}
+
+all_grid <- do.call(rbind, grid_results)
+
+viable_counts <- aggregate(
+  viable ~ deg + seg,
+  data = all_grid,
+  FUN = sum
+)
+
+names(viable_counts)[
+  names(viable_counts) == "viable"
+] <- "viable_count"
+
+viable_counts$viable_fraction <-
+  viable_counts$viable_count / nrow(threshold_grid)
+
+# Attach the baseline evidence-coverage measurements.
+integrated <- merge(
+  assessment,
+  viable_counts,
+  by = c("deg", "seg")
+)
+
+cat("\nE07 integrated threshold-grid results:\n")
+cat("Threshold combinations:", nrow(threshold_grid), "\n")
+cat("Directional segments:", nrow(integrated), "\n")
+
+cat("\nViable fraction by segment group:\n")
+print(
+  aggregate(
+    viable_fraction ~ seg,
+    data = integrated,
+    FUN = function(z) {
+      c(min = min(z), mean = mean(z), max = max(z))
+    }
+  ),
+  row.names = FALSE,
+  digits = 5
+)
+
+cat("\nThreshold-grid viability by evidence status:\n")
+print(
+  aggregate(
+    viable_fraction ~ evidence_status,
+    data = integrated,
+    FUN = function(z) {
+      c(min = min(z), mean = mean(z), max = max(z))
+    }
+  ),
+  row.names = FALSE,
+  digits = 5
+)
+
+cat("\nSelected western segments:\n")
+print(
+  integrated[
+    integrated$deg == 270,
+    c(
+      "deg", "seg",
+      "coverage_fraction",
+      "evidence_status",
+      "reconstructed_viable",
+      "viable_count",
+      "viable_fraction"
+    )
+  ],
+  row.names = FALSE,
+  digits = 5
+)
+
+stopifnot(
+  nrow(threshold_grid) == 72,
+  nrow(all_grid) == 7776,
+  nrow(integrated) == 108,
+  all(integrated$viable_count >= 0),
+  all(integrated$viable_count <= 72)
+)
+
+cat("\nE07 integrated threshold grid: PASSED\n")
+
+# E07: Inspect all partially covered directional segments.
+
+partial_segments <- integrated[
+  integrated$evidence_status == "partial",
+  c(
+    "deg",
+    "seg",
+    "length_m",
+    "observed_length_m",
+    "coverage_fraction",
+    "high_fraction",
+    "observed_support",
+    "viable_fraction"
+  )
+]
+
+partial_segments$missing_length_m <-
+  partial_segments$length_m -
+  partial_segments$observed_length_m
+
+cat("\nE07 partial-coverage diagnostic:\n")
+
+print(
+  partial_segments[
+    order(partial_segments$deg, partial_segments$seg),
+  ],
+  row.names = FALSE,
+  digits = 7
+)
+
+cat("\nMissing length summary (metres):\n")
+print(summary(partial_segments$missing_length_m))
+
+stopifnot(nrow(partial_segments) == 9)
+
+cat("\nE07 partial-coverage diagnostic: PASSED\n")
+
+# E07: Export integrated directional assessment.
+
+output_path <- "outputs/e07_integrated_directional_assessment.csv"
+
+integrated <- integrated[
+  order(integrated$deg, integrated$seg),
+]
+
+write.csv(
+  integrated,
+  file = output_path,
+  row.names = FALSE,
+  na = ""
+)
+
+cat("\nE07 integrated export:\n")
+cat("File:", output_path, "\n")
+cat("Rows:", nrow(integrated), "\n")
+cat("Columns:", ncol(integrated), "\n")
+
+stopifnot(
+  file.exists(output_path),
+  nrow(read.csv(output_path)) == 108,
+  all(c(
+    "deg",
+    "seg",
+    "high_fraction",
+    "reconstructed_viable",
+    "viable_count",
+    "viable_fraction",
+    "coverage_fraction",
+    "observed_support",
+    "evidence_status"
+  ) %in% names(integrated))
+)
+
+cat("\nE07 integrated export: PASSED\n")
