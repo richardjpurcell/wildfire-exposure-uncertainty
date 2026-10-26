@@ -3283,3 +3283,124 @@ Do not combine these into an unexplained
 uncertainty index.
 
 No maps were produced in this step.
+
+## D09.4 — Spatial sensitivity to unresolved FBP classification
+
+**Date:** 2026-10-26
+**Status:** Completed; independently verified
+
+### Purpose
+
+Measure how the calculated 500 m exposure surface depends
+on the treatment of unresolved 2026 FBP code 13.
+
+This is a deterministic sensitivity assessment. It is
+not a probability distribution, confidence interval, or
+validated estimate of wildfire risk.
+
+### Method
+
+The experiment uses the same 2026 FBP candidate,
+100 m grid, EPSG:3978 projection, and 500 m
+neighbourhood as the D09 reference exposure.
+
+Two assignments are compared:
+
+- Lower: unresolved code 13 assigned 0.
+- Upper: unresolved code 13 assigned 1.
+
+All other input assignments remain identical.
+
+The sensitivity surface is calculated as:
+
+`upper exposure - lower exposure`
+
+Because only unresolved classifications change, the
+difference is also the fraction of unresolved source
+cells within each 500 m assessment neighbourhood.
+
+### Verified results
+
+| Measurement | Result |
+|---|---:|
+| Valid assessment cells | 36,100 |
+| Mean lower exposure | 0.7124398 |
+| Mean upper exposure | 0.7471918 |
+| Mean sensitivity | 0.03475208 |
+| Maximum sensitivity | 1.0000 |
+| Cells with nonzero sensitivity | 14,168 |
+| Share of valid cells affected | 39.25% |
+| Unresolved source cells | 1,326 |
+
+The mean sensitivity corresponds to approximately
+3.48 percentage points in the calculated exposure
+measure, not a percentage increase in wildfire risk.
+
+Although only 1,326 source cells are unresolved,
+their potential influence extends to 14,168 valid
+exposure-assessment cells through the overlapping
+500 m neighbourhood calculations.
+
+These assessment cells are spatially related and
+must not be interpreted as independent observations.
+
+### Generated rasters
+
+Upper-assignment exposure:
+
+`data/processed/visualization/d09_upper_exposure_2026_500m.tif`
+
+Unresolved-classification sensitivity:
+
+`data/processed/visualization/d09_unresolved_sensitivity_2026_500m.tif`
+
+Both are local generated products excluded from Git
+under the existing `/data/processed/` rule.
+
+### Maintained reproduction script
+
+`scripts/d09_export_unresolved_sensitivity.R`
+
+This script reconstructs the upper-assignment surface,
+subtracts the verified D09 reference exposure, checks
+the resulting values against D08, and exports the
+spatial products.
+
+### Independent verification
+
+A separate read-only R diagnostic confirmed:
+
+- Matching raster geometry.
+- Exactly 36,100 valid assessment cells.
+- Nonnegative sensitivity bounded by 1.
+- Agreement between the saved sensitivity raster
+  and the saved upper-minus-lower calculation.
+- Independent agreement using `terra::focal()`
+  with an 80-neighbour, 500 m circular kernel,
+  excluding the centre cell.
+
+Maximum absolute discrepancies:
+
+- Saved subtraction: approximately 4.84e-8.
+- Independent focal calculation: approximately 3.58e-8.
+
+**Independent verification:** PASSED.
+
+### Interpretation for Picture 2
+
+This raster identifies where modelled exposure depends
+on the treatment of unresolved national FBP inputs.
+
+It does not identify whether those unresolved inputs
+are actually hazardous, nor does it measure the
+probability that the mapped exposure is incorrect.
+
+It should remain distinct from the C-2/C-4
+representation-sensitivity analysis.
+
+### Next step
+
+Prepare the spatial C-2/C-4 assumption-sensitivity
+surface from the maintained D08 framework.
+
+No maps were produced in this step.
