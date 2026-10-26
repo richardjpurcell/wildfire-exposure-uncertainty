@@ -1240,3 +1240,175 @@ Evaluate a combined presentation containing:
 Assess whether the three views remain independently
 interpretable and whether their differences
 help identify where further evidence is needed.
+
+## E07 — Integrated exposure, threshold viability, and evidence coverage
+
+**Date:** 2026-10-26
+**Status:** Completed
+**Type:** Synthetic methodology demonstration
+
+### Objective
+
+Evaluate three complementary properties of a directional wildfire
+exposure assessment using the same underlying synthetic landscape:
+
+1. Baseline high-exposure support and viability classification.
+2. Viable fraction across a grid of analytical thresholds.
+3. Spatial availability of supporting exposure measurements.
+
+### Experimental configuration
+
+- Raster: 200 × 200 cells, 100 m resolution
+- Coordinate reference system: EPSG:3978
+- Reference point: (10000, 10000)
+- Directional grid: 36 bearings at 10-degree intervals
+- Distance segments: three consecutive 2 km segments
+- Total directional segments: 108
+
+The exposure surface combines a radial gradient with an additional
+0.10 exposure increment in the eastern half.
+
+A 4 × 4 km southwest region is assigned missing exposure values.
+
+The raster contains 38,400 available cells and 1,600 missing cells,
+corresponding to 96% overall spatial coverage.
+
+### Baseline assessment
+
+The baseline uses:
+
+- Exposure threshold: 0.60
+- Viability threshold: 0.80
+
+Results:
+
+- Baseline viable segments: 45
+- Baseline nonviable segments: 63
+- Complete evidence segments: 81
+- Missing evidence segments: 18
+- Partially covered segments: 9
+- Mean directional evidence coverage: approximately 0.8133
+
+The difference between 96% raster coverage and 81.33% mean
+directional coverage illustrates the importance of assessing
+evidence availability along the actual observation geometry.
+
+### Threshold-grid assessment
+
+Exposure thresholds: 0.40 to 0.80 in increments of 0.05.
+
+Viability thresholds: 0.60 to 0.95 in increments of 0.05.
+
+The grid contains 72 parameter combinations and produces
+7,776 directional classifications.
+
+Every reconstructed classification agreed with the corresponding
+fire_exp_dir() result.
+
+Mean viable fraction by distance segment:
+
+| Segment | Mean viable fraction |
+|---|---:|
+| 0–2 km | 0.707176 |
+| 2–4 km | 0.398534 |
+| 4–6 km | 0.080247 |
+
+Mean viable fraction by evidence status:
+
+| Evidence status | Mean viable fraction |
+|---|---:|
+| Complete | 0.52709 |
+| Missing | 0 |
+| Partial | 0 |
+
+All 27 missing or partially observed segments were classified
+nonviable across the 72 threshold combinations.
+
+### Numerical boundary handling
+
+Nine first-segment transects contained negligible positive
+intersection lengths arising at the missing-data boundary.
+
+Their observed lengths ranged from approximately 2.93e-9 m
+to 1.37e-6 m.
+
+A coverage tolerance of 1e-8 prevents these negligible
+intersections from producing misleading observed-only support
+ratios.
+
+Raw lengths, coverage fractions, and package-compatible viability
+classifications remain unchanged.
+
+This tolerance addresses numerical geometry artifacts.
+It is not an evidence-sufficiency threshold.
+
+### Partial evidence
+
+Nine third-segment transects had partial evidence coverage.
+
+Their missing lengths ranged from approximately 1.41 m
+to 1,230.89 m.
+
+These partial classifications are retained rather than
+reclassified using an arbitrary minimum coverage requirement.
+
+### Integrated visualization
+
+The three-panel figure presents:
+
+A. Baseline high-exposure support, with black outlines marking
+   segments classified viable at the baseline thresholds.
+
+B. Fraction of the 72 threshold settings yielding a viable
+   classification.
+
+C. Fraction of each segment with available exposure measurements.
+
+All three panels use identical directional geometry.
+
+### Main finding
+
+Consistency across analytical thresholds does not necessarily
+establish that a directional classification is well supported
+by available evidence.
+
+Segments with incomplete or missing observations can remain
+consistently nonviable because the assessment does not identify
+high-exposure intersections in the unavailable portions.
+
+The result motivates communicating exposure support,
+threshold-grid viability, and evidence completeness separately.
+
+### Interpretation limits
+
+- Results arise from a deliberately constructed synthetic landscape.
+- Missing evidence must not be interpreted as observed low exposure.
+- Viable fraction is sensitivity to the selected threshold grid,
+  not a probability of safety, correctness, or actual exposure.
+- Evidence coverage measures availability, not accuracy.
+- The experiment does not establish operational safety or
+  real wildfire exposure conditions.
+- Numerical boundary tolerance is distinct from any future
+  evidence-sufficiency policy.
+
+### Reproducible artifacts
+
+Scripts:
+- `scripts/e07_integrated_landscape.R`
+- `scripts/plot_e07_integrated.R`
+
+Dataset:
+- `outputs/e07_integrated_directional_assessment.csv`
+
+Figure:
+- `outputs/figures/e07_integrated_three_views.png`
+
+### Next step
+
+Use the validated synthetic methodology as a reference when
+examining the available federal FBP fuel maps from 2019,
+2024, and 2026 and the Nova Scotia provincial forest inventory.
+
+Document differences in provenance, spatial coverage,
+classification, and resolution before drawing conclusions
+from cross-dataset comparisons.
