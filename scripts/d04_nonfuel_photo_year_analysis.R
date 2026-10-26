@@ -375,4 +375,3 @@ stopifnot(
 
 cat("Total intersection area (ha):", round(total, 4), "\n")
 cat("D04.5 area conservation: PASSED\n")
-

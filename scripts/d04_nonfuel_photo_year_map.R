@@ -287,4 +287,3 @@ stopifnot(
 )
 
 cat("\nD04.6 map generation: PASSED\n")
-

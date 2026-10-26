@@ -300,4 +300,3 @@ stopifnot(
 cat("\n=== D04.4 validation ===\n")
 cat("Total intersection area (ha):", round(total, 4), "\n")
 cat("All attribute summaries conserve area: PASSED\n")
-
