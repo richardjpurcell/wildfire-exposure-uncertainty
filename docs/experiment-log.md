@@ -1902,11 +1902,12 @@ At the same time, the provincial evidence in those cells is dominated by `PHOTOY
 - `outputs/d04_fbp_provincial_evidence_cross_tab.csv`
 - `outputs/figures/d04_nonfuel_photo_year_map.png`
 - `scripts/d04_fbp_provincial_cross_tab.R`
-- `scripts/d04_qualifying_nonfuel_cells.R`
-- `scripts/d04_nonfuel_polygon_intersection.R`
-- `scripts/d04_nonfuel_attribute_summary.R`
-- `scripts/d04_nonfuel_photo_year_analysis.R`
-- `scripts/d04_nonfuel_photo_year_map.R`
+- `scripts/d04_nonfuel_analysis.R`
+
+The consolidated non-fuel analysis reproduces the verified
+850-cell selection, 2,047 polygon intersections, area-weighted
+attribute summaries, and photograph-year figure. Intermediate
+diagnostic scripts remain available in Git history.
 
 ### Next step
 Condense the D04 results into the root `README.md`, then review the D04 scripts for possible consolidation before committing the new analysis outputs and figure.
