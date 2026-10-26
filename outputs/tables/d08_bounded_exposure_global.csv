@@ -1,0 +1,13 @@
+"metric","value"
+"valid_cells",36100
+"mean_2024_lower",0.762440789473682
+"mean_2024_upper",0.786069598337948
+"mean_2026_lower",0.71243975069252
+"mean_2026_upper",0.747191828254852
+"mean_interval_width_2024",0.0236288088642707
+"mean_interval_width_2026",0.0347520775623246
+"mean_delta_lower",-0.0736298476454289
+"mean_delta_upper",-0.0152489612188362
+"definitely_positive_cells",3891
+"definitely_negative_cells",20075
+"zero_in_difference_interval_cells",12134

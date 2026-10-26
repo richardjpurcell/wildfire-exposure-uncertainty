@@ -2745,3 +2745,197 @@ exposure-sensitivity result.
 
 No new maps or exposure calculations were performed
 in D07.11.
+
+## D08 — Bounded binary exposure sensitivity
+
+**Date:** 2026-10-26
+**Status:** Completed; independently verified
+
+### Purpose
+
+Evaluate how differences between the 2024 and 2026 national
+FBP fuel representations affect a controlled, simplified
+wildfire exposure calculation.
+
+Distinguish classification disagreement, exposure disagreement,
+and the consequences of unresolved input classifications.
+
+### Inputs and implementation
+
+- 2024 FBP aligned 100 m raster.
+- 2026 FBP candidate 100 m raster.
+- Common 20 × 20 km Westwood Hills study window.
+- EPSG:3978.
+- `fireexposuR` 1.2.0, `fire_exp()`.
+- Transmission distance: 500 m.
+- Valid comparison area: 36,100 interior cells.
+- Script: `scripts/d08_bounded_binary_exposure.R`.
+
+The calculation uses the package's 500 m annular focal
+window, containing 80 surrounding raster cells at the
+current 100 m resolution. The assessment cell itself is
+excluded.
+
+### Experimental fuel-to-hazard representation
+
+This experiment uses a deliberately simplified binary rule:
+
+- 1: recognized conifer, mixedwood, deciduous, or grass
+  analytical fuel family.
+- 0: explicit water or non-fuel classification.
+- Unresolved: 2024 code 105 and 2026 code 13.
+
+These assignments represent a controlled vegetation-presence
+scenario. They are **not** validated classifications of fuel
+capable of transmitting fire over 500 m.
+
+Unresolved classifications are assigned 0 in the lower
+scenario and 1 in the upper scenario. This produces
+deterministic bounds on calculated exposure under the
+chosen binary representation.
+
+The assignments are allowed to vary independently between
+national editions when bounding their differences.
+
+### Classification screening
+
+Across 40,000 aligned cells:
+
+| Measurement | Cells |
+|---|---:|
+| Different broad analytical families | 16,066 |
+| Same assigned binary status | 35,260 |
+| Different assigned binary status | 3,089 |
+| Unresolved in at least one edition | 1,651 |
+
+Of the 3,089 different binary statuses:
+
+- 2,176 change from vegetation to explicit non-fuel.
+- 913 change from explicit non-fuel to vegetation.
+
+The 3,568 C-4 (2024) to C-2 (2026) transition cells
+receive a binary value of 1 in both representations.
+The chosen abstraction therefore conceals this
+specific fuel-type distinction.
+
+### Regional exposure results
+
+All results below use the same 36,100 valid interior cells.
+
+| Measurement | Result |
+|---|---:|
+| 2024 mean exposure, lower assignment | 0.76244 |
+| 2024 mean exposure, upper assignment | 0.78607 |
+| 2026 mean exposure, lower assignment | 0.71244 |
+| 2026 mean exposure, upper assignment | 0.74719 |
+| Mean 2026–2024 difference, lower bound | -0.07363 |
+| Mean 2026–2024 difference, upper bound | -0.01525 |
+| Definitely positive cell differences | 3,891 |
+| Definitely negative cell differences | 20,075 |
+| Difference intervals containing zero | 12,134 |
+
+The regional mean difference remains negative across
+the tested unresolved-category assignments.
+
+Local differences are not uniformly negative.
+
+### Local neighbourhood comparison
+
+The six selected neighbourhoods each contain 400
+valid assessment cells.
+
+| Block | Mean difference lower | Mean difference upper |
+|---|---:|---:|
+| 35 (Westwood Hills reference) | -0.24209 | +0.04384 |
+| 34 | -0.10206 | -0.05337 |
+| 25 | -0.51594 | +0.21184 |
+| 24 | -0.07081 | -0.03547 |
+| 44 | -0.06553 | -0.05847 |
+| 33 | -0.02562 | -0.01294 |
+
+Blocks 35 and 25 have mean-difference intervals
+containing zero.
+
+Blocks 34, 24, 44, and 33 have entirely negative
+mean-difference intervals under the tested assumptions.
+
+For block 35, 84 assessment cells have definitely
+positive differences, 108 have definitely negative
+differences, and 208 have intervals containing zero.
+
+For block 34, the corresponding counts are
+7, 353, and 40.
+
+These local contrasts describe sensitivity to
+the specified input representation and unresolved
+assignments. They do not establish differences
+in actual wildfire behaviour.
+
+### Interpretation and limitations
+
+1. The analysis compares alternative national
+   landscape representations, not observed environmental
+   change between 2024 and 2026.
+
+2. Exposure values are proportions of surrounding cells
+   classified as hazardous under the experimental rule,
+   not probabilities of burning.
+
+3. The interval bounds are deterministic sensitivity
+   bounds, not confidence intervals or calibrated
+   uncertainty estimates.
+
+4. The common 500 m interior excludes the unsupported
+   outer perimeter of the study window.
+
+5. Raster cells are spatially correlated and should
+   not be treated as statistically independent samples.
+
+6. Differences in provincial botanical composition
+   cannot presently be interpreted as causes of the
+   calculated national-map exposure differences.
+
+7. The binary rule treats C-4 and C-2 identically.
+   Within-conifer sensitivity remains unresolved.
+
+8. The selected fuel-to-hazard rule is illustrative
+   and should not be used for operational wildfire
+   exposure assessment without additional validation.
+
+### Reproducibility
+
+Maintained script:
+
+- `scripts/d08_bounded_binary_exposure.R`
+
+Generated tables:
+
+- `outputs/tables/d08_bounded_exposure_global.csv`
+- `outputs/tables/d08_bounded_exposure_local.csv`
+
+The maintained R script reproduced the earlier
+exploratory results and passed its internal assertions.
+
+An independent Python verification confirmed:
+
+- Global difference-bound arithmetic.
+- Regional cell-count reconciliation.
+- Six local neighbourhoods with 400 cells each.
+- Local sign-category totals.
+- Local mean-difference calculations.
+
+**Verification status:** PASSED.
+
+### Next investigation
+
+D08 within-conifer sensitivity:
+
+Examine whether alternative, explicitly justified
+hazard assignments for C-4 and C-2 change the
+exposure assessment.
+
+Keep this separate from the broad binary experiment
+and do not infer that either fuel type is necessarily
+more hazardous without supporting evidence.
+
+No maps were generated for this milestone.
