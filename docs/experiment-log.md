@@ -2567,3 +2567,181 @@ changes in estimated exposure.
 
 No new exposure calculations or maps have been performed
 in D07.10.
+
+### D07.11 — Local botanical composition (2026-10-26)
+
+**Status:** Reproducible local composition analysis completed.
+
+#### Purpose
+
+Examine whether nearby locations within the 2024 C-4 to
+2026 C-2 disagreement footprint differ in recorded botanical
+composition, rather than relying on the number of species
+components or first-listed species alone.
+
+The Westwood Hills reference neighbourhood is block 35.
+
+#### Reproducible implementation
+
+Script:
+`scripts/d07_local_botanical_composition.R`
+
+Outputs:
+- `outputs/tables/d07_local_botanical_groups.csv`
+- `outputs/tables/d07_local_species_components.csv`
+
+The analysis uses the established 2 km neighbourhood grid
+and exact intersections between provincial forest inventory
+polygons and C-4 to C-2 disagreement-cell footprints.
+
+Species contributions are weighted by polygon-intersection
+area and recorded species-component proportions in tenths.
+
+#### Botanical classification
+
+The provincial forest inventory attribute reference provides
+the species coding used in this analysis.
+
+Softwood codes:
+RS, BF, BS, XS, WP, OS, TL, EH, WS, US, RP, NS.
+
+Hardwood codes:
+RM, IH, UH, TH, OH, YB, WB, SM, BE, RO, TA, AS.
+
+Botanically unresolved:
+UC.
+
+XS represents a combined red/black spruce category.
+It is retained as a softwood category without splitting
+its contribution between individual spruce species.
+
+The 25 codes occurring in the selected disagreement
+footprint are accounted for by these groups.
+
+Across all 2,834.208 ha of described first-story forest:
+
+- Softwood component contribution: 77.06%.
+- Hardwood component contribution: 17.80%.
+- Unresolved component contribution: 5.14%.
+
+These percentages are proportions of area-weighted
+recorded species components, not measured basal area
+or current fuel composition.
+
+#### Local neighbourhood results
+
+| Block | Described area (ha) | Softwood (%) | Hardwood (%) | Unresolved (%) |
+|---|---:|---:|---:|---:|
+| 35 | 19.342 | 78.49 | 14.68 | 6.83 |
+| 34 | 35.004 | 78.63 | 16.56 | 4.81 |
+| 25 | 26.920 | 68.65 | 29.76 | 1.59 |
+| 24 | 28.370 | 64.88 | 11.31 | 23.81 |
+| 44 | 32.341 | 82.25 | 14.69 | 3.06 |
+| 33 | 34.731 | 79.78 | 19.31 | 0.91 |
+
+#### Primary local contrasts
+
+**Neighbourhoods 34 and 35:**
+
+Their area-weighted botanical-group proportions are
+similar, despite differences in leading-species-component
+dominance.
+
+Recorded softwood contributions are 78.63% and 78.49%,
+respectively.
+
+The proportion of described area where the leading
+component is at most 50% is 11.99% in block 34
+and 33.70% in block 35.
+
+Both have substantial recorded RS and XS contributions.
+
+This contrast distinguishes within-stand component
+dominance from aggregate softwood/hardwood composition.
+
+**Neighbourhood 25:**
+
+Recorded hardwood contribution is 29.76%, compared with
+14.68% in block 35.
+
+Red maple (RM) contributes 23.17% of described
+component-weighted area.
+
+This is a local botanical-composition contrast, not
+proof of differing FBP fuel behaviour.
+
+**Neighbourhood 24:**
+
+Unclassified species (UC) account for 23.81% of recorded
+component-weighted area.
+
+The D07.10 description-completeness measure for this
+neighbourhood is 97.34%.
+
+A complete component encoding can therefore coexist
+with substantial uncertainty about botanical identity.
+
+This distinguishes description completeness from
+botanical specificity.
+
+#### Reproducibility
+
+The maintained R script validates:
+
+- The 3,568-cell national disagreement footprint.
+- The 2,834.208 ha described forest total.
+- The global botanical-group component totals.
+- Local described-area reconciliation with D07.10.
+- Selected local species contributions.
+
+Independent Python verification confirms that both
+output CSVs reconcile with the maintained D07.10 data.
+
+All primary candidate species-component percentages
+sum to 100% within numerical tolerance.
+
+#### Interpretation and limitations
+
+All reported botanical-group percentages use described
+first-story forest area as their denominator.
+
+Undescribed forest area is excluded from species-component
+percentages and must be considered separately.
+
+UC is retained as botanically unresolved rather than
+assigned to softwood or hardwood.
+
+Multiple recorded components do not necessarily imply
+softwood-hardwood mixtures.
+
+These historical provincial inventory descriptions
+are not direct measurements of current forest condition
+or wildfire fuel behaviour.
+
+Provincial forest composition must not be treated
+automatically as ground truth or as independent of
+national fuel-map source evidence.
+
+The analysis does not establish which FBP edition
+is more accurate or whether exposure estimates differ.
+
+#### Next investigation
+
+Retain neighbourhoods 35, 34, 25 and 24 as provisional
+local examples representing distinct evidence conditions.
+
+Before producing paired exposure and uncertainty maps:
+
+- Establish how national FBP classifications affect
+  the chosen exposure calculation.
+- Define controlled comparisons between input editions.
+- Distinguish classification sensitivity from uncertainty
+  in provincial supporting evidence.
+- Assess whether the observed differences lead to
+  meaningful changes in estimated exposure.
+
+The README remains unchanged pending an interpretable
+exposure-sensitivity result.
+
+No new maps or exposure calculations were performed
+in D07.11.
