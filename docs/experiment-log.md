@@ -2153,3 +2153,68 @@ rules.
 Seek independent geographic control or authoritative
 confirmation of the reported registration issue before
 attributing spatial disagreement to particular causes.
+
+### D06 — Fuel-bearing versus special-category differences (2026-10-26)
+
+**Status:** Completed and reproducibly verified
+
+Script:
+`scripts/d06_disagreement_types.R`
+
+Output:
+`outputs/tables/d06_disagreement_types.csv`
+
+Across 40,000 paired cells:
+
+| Comparison category | Cells | Percent |
+|---|---:|---:|
+| Same analytical family | 23,934 | 59.8350% |
+| Different recognized fuel families | 11,223 | 28.0575% |
+| Fuel-to-special disagreement | 3,822 | 9.5550% |
+| Special-to-special disagreement | 1,021 | 2.5525% |
+
+Recognized fuel families here include conifer, deciduous,
+mixedwood and grass. Special classes include water,
+non-fuel, vegetated non-fuel and unmatched vegetation.
+
+Of the 16,066 different-family cells, 69.86% involve
+two recognized FBP fuel families.
+
+#### Ecological applicability question
+
+Natural Resources Canada identifies the Maritimes
+with the Acadian forest region, characterized by
+species including red spruce, balsam fir and yellow birch.
+
+Several standard FBP fuel types, including C-2, C-4
+and M-1/M-2, are described using boreal forest
+species and stand structures.
+
+The 2024 national FBP classification map was developed
+using national source information including SCANFI,
+Canadian ecozones and burned-area data.
+
+This creates a question about the applicability of
+particular FBP model assignments to local Acadian forest
+composition. It does not establish that either edition
+is incorrect or that the map was built exclusively from
+boreal forest data.
+
+Sources:
+- https://natural-resources.canada.ca/forests-forestry/sustainable-forest-management/forest-classification
+- https://natural-resources.canada.ca/forests-forestry/wildland-fires/canada-fire-behaviour-prediction-system-fuel-types
+- https://open.canada.ca/data/en/dataset/4e66dd2f-5cd0-42fd-b82c-a430044b31de
+
+#### Next investigation
+
+Use provincial forest-inventory composition to examine
+selected locations with substantial conifer/mixedwood
+or deciduous/mixedwood disagreement.
+
+Keep three questions separate:
+- Do the 2024 and 2026 mapped classifications differ?
+- What forest composition does provincial evidence describe?
+- How well does each assigned FBP fuel model represent
+  that composition?
+
+No map accuracy or fuel-behaviour validation is claimed.
