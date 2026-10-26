@@ -83,21 +83,32 @@ We will distinguish evidence disagreement, numerical sensitivity, decision-margi
 
 ## Project status
 
-**Stage: Synthetic methodology validation complete; 2026 federal–provincial landscape evidence comparison completed through D04.**
+**Stage: Synthetic methodology E01-E07 complete;
+empirical landscape investigation completed through D09.**
 
-Synthetic experiments E01–E07 established methods for examining
-directional exposure support, threshold sensitivity, and evidence
-coverage.
+Synthetic experiments E01-E07 established methods for
+examining directional exposure support, threshold
+sensitivity, and evidence coverage.
 
-D01–D04 established the study grid, documented 2026 FBP fuel
-classifications, characterized provincial evidence coverage, and
-examined spatial relationships between federal and provincial
-landscape representations.
+D01-D04 established the study grid, documented fuel
+classifications, characterized provincial evidence
+coverage, and examined relationships between federal
+and provincial landscape representations.
 
-The 2019 and 2024 FBP comparisons remain planned.
+D05-D08 extended the analysis to differences between
+2024 and 2026 FBP representations, alternative fuel
+assignments, and unresolved input classifications.
 
-No empirical wildfire exposure assessment has yet been completed
-within this project.
+D09 produced four selected visualization panels:
+two views of a reference exposure surface and two
+distinct sensitivity maps.
+
+The 2019 FBP representation and a comparison with the
+2023 Tantallon fire remain future investigations.
+
+The calculated exposure results are experimental
+neighbourhood proportions, not validated predictions
+of fire behaviour or operational safety.
 
 ## Findings
 
@@ -158,6 +169,94 @@ observation dates, and update histories may differ.
 
 Detailed results and limitations are documented in the
 [experiment log](docs/experiment-log.md).
+
+### D09 - Exposure and the stability of its interpretation
+
+D09 presents calculated exposure alongside two
+different ways that its interpretation can depend
+on landscape evidence and classification assumptions.
+
+The four maps use a common approximately 6 x 8 km
+viewing window around Westwood Hills.
+
+#### Figure 1 - Reference exposure
+
+Both panels show the same 2026 reference exposure
+calculation. Only the geographic background changes.
+
+| Satellite context | Cartographic context |
+| --- | --- |
+| ![Satellite exposure](outputs/figures/d09_satellite_exposure_grayscale_45.png) | ![Cartographic exposure](outputs/figures/d09_cartographic_exposure_grayscale_45.png) |
+
+*Figure 1. Reference exposure over grayscale satellite
+and cartographic backgrounds. Both panels use identical
+exposure values, breaks, colours, and 45% opacity.*
+
+The exposure value is the proportion of cells assigned
+hazardous status in a 500 m analytical neighbourhood.
+It is not the probability that a location will burn.
+
+The reference representation assigns recognized
+vegetation a value of one, and explicit non-fuel and
+unresolved input classifications a value of zero.
+These assignments are experimental.
+
+#### Figure 2 - Sensitivity of the interpretation
+
+| Fuel-assumption sensitivity | Unresolved-input sensitivity |
+| --- | --- |
+| ![Conifer assumption sensitivity](outputs/figures/d09_conifer_stability_map_v2.png) | ![Unresolved input sensitivity](outputs/figures/d09_unresolved_sensitivity_map_v2.png) |
+
+*Figure 2. Two different sensitivity analyses within
+the same geographic viewing window.*
+
+**Left:** Whether the direction of the calculated
+2026-minus-2024 exposure difference is robustly
+opposing, in agreement, or indeterminate under two
+hypothetical C-2/C-4 assignments.
+
+**Right:** The change in calculated 2026 exposure
+when unresolved fuel inputs are assigned one rather
+than zero. Zero sensitivity is shown separately from
+positive sensitivity.
+
+These panels do not measure the total uncertainty
+of the assessment. Agreement does not establish
+correctness, and zero unresolved-input sensitivity
+does not establish complete or reliable evidence.
+
+**Central observation:** A coherent exposure map
+can conceal important dependencies on landscape
+representation and unresolved evidence.
+
+The maps use analytical blocks 25, 35, and 44 as
+geographic references. The acquisition dates of
+the satellite imagery have not been verified.
+
+Detailed figure definitions and reproduction
+instructions are available in the
+[D09 selected-figures record](docs/d09_selected_figures.md).
+
+The maintained rendering entry point is:
+
+`scripts/d09_render_selected_figures.R`
+
+All four images were regenerated and verified as
+pixel-identical to their selected originals in the
+tested local environment.
+
+#### Planned continuation
+
+The next visualization experiment will examine
+directional segments radiating from Westwood Hills,
+distinguishing directional viability from the
+stability of those classifications.
+
+A separate historical investigation will consider
+the 2019 FBP representation and an authoritative
+2023 Tantallon fire perimeter. Differences among
+map editions will not automatically be interpreted
+as actual landscape changes.
 
 ### Synthetic methodology findings
 
