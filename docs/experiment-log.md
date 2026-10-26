@@ -2046,3 +2046,41 @@ classification accuracy, or wildfire exposure change.
 
 Next: map the spatial distribution of disagreement
 categories and investigate selected concentrations.
+
+### D06 — Spatial disagreement map (2026-10-26)
+
+**Status:** Completed and reproducibly verified
+
+Mapped the four-category disagreement classification derived from
+the paired 2024–2026 family comparison.
+
+Script:
+`scripts/d06_fbp_disagreement_map.R`
+
+Output figure:
+`outputs/figures/d06_fbp_disagreement_map.png`
+
+Derived processed raster:
+`data/processed/study-window/d06_fbp_disagreement_category_100m.tif`
+
+Mapped categories and counts:
+
+| Category | Cells | Percent |
+|---|---:|---:|
+| Same code, same family | 16,700 | 41.7500% |
+| Different code, same family | 7,234 | 18.0850% |
+| Same code, different family | 303 | 0.7575% |
+| Different code, different family | 15,763 | 39.4075% |
+
+The map reproduces the committed D06.5 family-summary totals exactly.
+
+Initial interpretation:
+- disagreement is spatially structured rather than uniformly random;
+- broad areas of agreement coexist with extensive different-family disagreement;
+- the rare same-code/different-family class is sparse, consistent with the code 13 cross-edition meaning difference.
+
+This figure is suitable for analysis and documentation.
+A later presentation-oriented version may tighten margins and styling.
+
+Next:
+identify concentrated disagreement zones and summarize their dominant paired transitions.
