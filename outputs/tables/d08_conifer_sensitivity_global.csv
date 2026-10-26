@@ -1,0 +1,3 @@
+"scenario","valid_cells","mean_fixed_zero","mean_delta_lower","mean_delta_upper","definitely_positive_cells","definitely_negative_cells","zero_in_interval_cells","robust_opposing_sign_cells"
+"A_C2_included",36100,0.0724681440443233,0.0488393351800521,0.107220221606649,21979,8914,5207,19436
+"B_C4_included",36100,-0.163813019390581,-0.187441828254844,-0.129060941828255,2811,30058,3231,19436

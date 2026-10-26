@@ -2939,3 +2939,213 @@ and do not infer that either fuel type is necessarily
 more hazardous without supporting evidence.
 
 No maps were generated for this milestone.
+
+## D08 — Within-conifer classification sensitivity
+
+**Date:** 2026-10-26
+**Status:** Completed; corrected and independently verified
+
+### Purpose
+
+Evaluate how the 2024–2026 exposure comparison depends
+on the treatment of C-2 and C-4 fuel classifications.
+
+This investigation follows the broad binary D08
+experiment, in which all recognized conifer types
+received an identical hazard value.
+
+The purpose is sensitivity analysis, not the
+estimation of operational wildfire hazard.
+
+### Classification transitions
+
+Across the aligned 40,000-cell study area:
+
+- 12,225 cells are classified as conifer in both editions.
+- 6,201 of those cells have different conifer codes.
+- 3,568 change from C-4 in 2024 to C-2 in 2026.
+- 623 change from C-2 in 2024 to C-4 in 2026.
+
+The changes represent disagreement between mapped
+classifications, not observed changes in forest condition.
+
+### Spatial footprint of disagreement
+
+A read-only diagnostic applied the same 500 m,
+80-cell annular neighbourhood used by `fire_exp()`.
+
+Among 36,100 valid interior assessment cells:
+
+- Mean fraction of surrounding cells with any
+  within-conifer code change: 0.154014.
+- Mean fraction with a C-4 to C-2 transition: 0.088075.
+- 30,696 assessment cells have at least one C-4 to C-2
+  transition within their surrounding annular window.
+
+In neighbourhood 35, containing the Westwood Hills
+reference point, 391 of 400 assessment cells have
+at least one nearby C-4 to C-2 transition.
+
+These are densities of classification transitions,
+not changes in wildfire exposure or fire behaviour.
+
+### Experimental scenarios
+
+Two opposing hypothetical representations were tested:
+
+| Scenario | C-2 | C-4 |
+|---|---:|---:|
+| A: C-2 included | 1 | 0 |
+| B: C-4 included | 0 | 1 |
+
+In both scenarios:
+
+- All other recognized vegetation categories receive 1.
+- Explicit water and non-fuel categories receive 0.
+- Unresolved 2024 code 105 and 2026 code 13 are
+  assigned either 0 or 1 to construct deterministic bounds.
+- Transmission distance is 500 m.
+- Raster resolution is 100 m.
+- The same 36,100 interior cells are compared.
+
+These assignments are deliberately extreme
+computational stress tests.
+
+Neither scenario is a validated long-range ember
+transmission classification or a statement that
+C-2 or C-4 is inherently non-hazardous.
+
+The scenarios change treatment of all C-2 and C-4
+cells, not solely the observed C-4 to C-2 transitions.
+
+### Corrected regional results
+
+Differences are calculated as 2026 minus 2024 exposure.
+
+| Result | Scenario A | Scenario B |
+|---|---:|---:|
+| Fixed-zero mean difference | +0.072468 | -0.163813 |
+| Bounded mean difference, lower | +0.048839 | -0.187442 |
+| Bounded mean difference, upper | +0.107220 | -0.129061 |
+| Definitely positive assessment cells | 21,979 | 2,811 |
+| Definitely negative assessment cells | 8,914 | 30,058 |
+| Difference interval includes zero | 5,207 | 3,231 |
+
+The regional mean-difference intervals have opposite
+signs across the tested unresolved-category assignments.
+
+At 19,436 interior assessment cells, the two scenarios
+produce robustly opposing difference signs.
+
+These cells are spatially correlated and do not
+constitute independent statistical observations.
+
+### Selected neighbourhood results
+
+Mean difference bounds, 2026 minus 2024:
+
+| Block | Scenario A | Scenario B | Robustly opposing cells |
+|---|---|---|---:|
+| 35 | -0.136313 to +0.149625 | -0.317031 to -0.031094 | 187 |
+| 34 | -0.016500 to +0.032188 | -0.285500 to -0.236813 | 166 |
+| 25 | -0.356719 to +0.371063 | -0.522125 to +0.205656 | 93 |
+| 24 | -0.022469 to +0.012875 | -0.277031 to -0.241688 | 175 |
+| 44 | +0.037219 to +0.044281 | -0.146000 to -0.138938 | 232 |
+| 33 | -0.046844 to -0.034156 | -0.265813 to -0.253125 | 108 |
+
+Each neighbourhood contains 400 valid assessment cells.
+
+Block 35, containing the Westwood Hills reference,
+has an indeterminate mean-difference sign in Scenario A,
+but a negative interval in Scenario B.
+
+Block 44 has opposite mean-difference signs in both
+scenarios, stable across unresolved assignments.
+
+The six selected neighbourhoods account for 961
+robustly opposing assessment cells. This subtotal
+must not be confused with the regional total of 19,436.
+
+### Diagnostic correction
+
+The exploratory D08.14 output associated the regional
+fixed-zero results with the wrong scenario labels.
+
+The D08.15 baseline assertion detected the inconsistency,
+and the run stopped without writing output files.
+
+A subsequent diagnostic explicitly verified the
+C-2 and C-4 assignments in both national editions.
+
+D08.16 then reproduced the corrected baseline values:
+
+- Scenario A, C-2 included: +0.072468.
+- Scenario B, C-4 included: -0.163813.
+
+The maintained analysis asserts the actual code
+assignments before accepting the numerical results.
+
+The earlier D08.14 scenario labels should not be used
+as established results.
+
+### Interpretation and limitations
+
+1. Reversing the hypothetical treatment of C-2
+   and C-4 reverses the regional mean exposure
+   difference under the tested assumptions.
+
+2. The regional result does not establish an
+   equally stable reversal in every neighbourhood.
+
+3. Bounds reflect deterministic input-assignment
+   sensitivity, not statistical confidence intervals.
+
+4. No physical fire-transmission ranking between
+   C-2 and C-4 has been established by this experiment.
+
+5. The FBP editions are alternative landscape
+   representations, not necessarily a chronological
+   sequence of vegetation changes.
+
+6. The analysis does not establish which national
+   edition better represents actual local fuels.
+
+7. The provincial inventory evidence remains
+   separate; botanical composition has not been
+   shown to cause the exposure differences.
+
+### Reproducibility
+
+Maintained script:
+
+- `scripts/d08_within_conifer_sensitivity.R`
+
+Generated tables:
+
+- `outputs/tables/d08_conifer_sensitivity_global.csv`
+- `outputs/tables/d08_conifer_sensitivity_local.csv`
+
+The maintained R implementation reproduced the corrected
+D08.16 results and passed internal assertions.
+
+Independent Python CSV verification confirmed:
+
+- Two regional scenarios and their bounded results.
+- Corrected fixed-zero numerical values.
+- Sign-category counts reconciling to 36,100 cells.
+- Six neighbourhood records with 400 cells each.
+- Local difference-interval ordering.
+- The six-neighbourhood robust-opposition subtotal.
+
+**Verification status:** PASSED.
+
+### Next investigation
+
+Synthesize the broad binary and within-conifer
+experiments before deciding on visualizations.
+
+Distinguish the exposure estimate from its
+sensitivity to representation choices and
+the completeness of the underlying evidence.
+
+No maps were generated for this milestone.
