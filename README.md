@@ -176,21 +176,20 @@ D09 presents calculated exposure alongside two
 different ways that its interpretation can depend
 on landscape evidence and classification assumptions.
 
-The four maps use a common approximately 6 x 8 km
+The three maps use a common approximately 6 x 8 km
 viewing window around Westwood Hills.
 
 #### Figure 1 - Reference exposure
 
-Both panels show the same 2026 reference exposure
-calculation. Only the geographic background changes.
+The 2026 reference exposure calculation is shown
+over a grayscale cartographic background.
 
-| Satellite context | Cartographic context |
-| --- | --- |
-| ![Satellite exposure](outputs/figures/d09_satellite_exposure_grayscale_45.png) | ![Cartographic exposure](outputs/figures/d09_cartographic_exposure_grayscale_45.png) |
+![Reference exposure over grayscale cartographic background](outputs/figures/d09_cartographic_exposure_grayscale_45.png)
 
-*Figure 1. Reference exposure over grayscale satellite
-and cartographic backgrounds. Both panels use identical
-exposure values, breaks, colours, and 45% opacity.*
+*Figure 1. Reference exposure calculated from the 2026
+fuel representation, displayed over a grayscale cartographic
+background using the established colour breaks and
+45% opacity.*
 
 The exposure value is the proportion of cells assigned
 hazardous status in a 500 m analytical neighbourhood.
