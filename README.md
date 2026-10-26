@@ -8,10 +8,16 @@ Wildfire exposure assessments describe how surrounding landscape conditions may 
 
 This project investigates how those dependencies can be measured and communicated alongside conventional exposure results.
 
-The central proposal is to produce two complementary pictures:
+The central proposal is to communicate exposure assessments
+alongside the evidence and assumptions supporting their conclusions.
+
+The emerging visualization framework distinguishes three views:
 
 1. **Exposure:** What does the assessment indicate about the surrounding landscape?
-2. **Stability:** How strongly does that conclusion depend on the evidence, representation, and thresholds used?
+2. **Threshold sensitivity:** How do directional classifications change under different analytical thresholds?
+3. **Evidence coverage:** Where are supporting observations available, incomplete, or missing?
+
+These views are complementary, not components of a single uncertainty score.
 
 An exposure result may remain in the same classification even when its underlying numerical value or distance from a decision threshold changes substantially. Understanding these distinctions is an important part of the investigation.
 
@@ -37,30 +43,34 @@ The investigation is organized into four layers:
 1. **Evidence:** Examine source datasets, provenance, coverage, and classification differences.
 2. **Representation:** Construct comparable experimental landscape representations while preserving assumptions and missing information.
 3. **Exposure:** Calculate continuous and directional exposure assessments using controlled parameters.
-4. **Communication:** Develop paired exposure and stability visualizations.
+4. **Communication:** Develop complementary views of exposure, threshold sensitivity, and evidence coverage.
 
 The initial technical environment uses R, `terra`, and `fireexposuR`.
 
-Planned experiments include sensitivity to transmission distance, alternative fuel representations, and two-dimensional exposure and directional-viability threshold combinations.
+Completed synthetic experiments include two-dimensional exposure and directional-viability threshold combinations. Future investigations will consider transmission distance and alternative fuel representations.
 
 We will distinguish evidence disagreement, numerical sensitivity, decision-margin sensitivity, and classification stability rather than treating them as a single measure of uncertainty.
 
 ## Project status
 
-**Stage: Synthetic methodology validation**
+**Stage: Synthetic methodology validation completed; landscape-data review next**
 
-The repository and R analysis environment are established.
-Synthetic experiments E01 and E02 have tested directional
-exposure classification and continuous support reconstruction.
+Synthetic experiments E01–E07 have established and tested
+methods for reconstructing directional exposure support,
+examining classification transitions, evaluating analytical
+threshold sensitivity, and measuring evidence coverage.
 
-The initial study region is Westwood Hills / Upper Tantallon,
-Nova Scotia. No new exposure results for that region have
-yet been produced within this project.
+E07 combines baseline exposure, threshold-grid viability,
+and evidence coverage on the same synthetic landscape.
+Its integrated visualization is available below.
 
-The next methodological steps are to examine classification
-transitions, threshold sensitivity, and the treatment of
-missing exposure evidence before applying the workflow
-to the landscape datasets.
+The next phase will examine the provenance, classifications,
+resolution, and spatial coverage of the 2019, 2024, and 2026
+federal FBP fuel maps and the Nova Scotia provincial forest
+inventory.
+
+No new empirical exposure findings for Westwood Hills /
+Upper Tantallon have yet been produced within this project.
 
 ## Findings
 
@@ -200,6 +210,46 @@ environmental uncertainty, or operational safety.
 
 Detailed methods, results, and limitations are recorded
 in the [experiment log](docs/experiment-log.md).
+
+### E07 — Integrated exposure, threshold viability, and evidence coverage
+
+E07 combines three measurements on the same heterogeneous
+synthetic exposure landscape, including a deliberately
+unobserved southwest region.
+
+The assessment uses 108 directional segments and 72
+combinations of exposure and viability thresholds.
+
+Principal results:
+
+- Baseline classification: 45 viable and 63 nonviable segments.
+- Evidence status: 81 complete, 18 missing, and 9 partially observed segments.
+- Mean directional evidence coverage: approximately 81.33%, compared with 96% overall raster coverage.
+- All 27 missing or partially observed segments remained nonviable across the entire threshold grid.
+- All 7,776 reconstructed threshold-grid classifications agreed with `fire_exp_dir()`.
+
+The central finding is that **consistent directional classifications
+do not necessarily imply complete supporting evidence**.
+
+A missing observation must not be interpreted as a measurement
+of low exposure. Likewise, the fraction of threshold settings
+producing a viable classification is not a probability of
+correctness, safety, or actual exposure.
+
+#### Integrated directional visualization
+
+![E07 integrated exposure assessment, threshold-grid viability, and evidence coverage](outputs/figures/e07_integrated_three_views.png)
+
+*Figure: Three views of the same synthetic directional assessment.
+Panel A shows high-exposure support, with black outlines marking
+segments viable at baseline thresholds Te = 0.60 and Tv = 0.80.
+Panel B shows the fraction of 72 threshold combinations producing
+a viable classification. Panel C shows available evidence coverage.
+The southwest evidence gap is deliberately introduced and does not
+represent observations from the Westwood Hills wildfire.*
+
+The detailed experimental design, numerical checks, and limitations
+are recorded in [`docs/experiment-log.md`](docs/experiment-log.md).
 
 ## Reproducibility
 
