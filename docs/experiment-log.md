@@ -2332,3 +2332,92 @@ Maintain separate accounts of:
 - Fuel-map classification disagreement.
 - Provincial composition and observation age.
 - Model applicability and eventual exposure sensitivity.
+
+### D07 — Dominant species and recorded stand mixtures (2026-10-26)
+
+**Status:** Reproducible analysis completed
+
+#### Purpose
+
+Examine how first-listed provincial species categories
+and species-component mixtures vary within cells
+classified C-4 in the 2024 FBP edition and C-2 in 2026.
+
+#### Reproducible implementation
+
+Script:
+`scripts/d07_c4_to_c2_dominant_species.R`
+
+Outputs:
+- `outputs/tables/d07_c4_to_c2_dominant_species.csv`
+- `outputs/tables/d07_c4_to_c2_stand_mixing.csv`
+
+The analysis uses exact intersections between
+provincial inventory polygons and the selected
+FBP raster-cell footprints.
+
+Area weighting is based on polygon-intersection area.
+
+#### Verified results
+
+The denominator is 2,834.208 ha of provincially
+described first-story forest composition.
+
+First-listed species categories:
+
+| Code | Share of described area |
+|---|---:|
+| RS | 40.57% |
+| BS | 21.58% |
+| XS | 12.25% |
+| BF | 7.73% |
+| RM | 5.59% |
+| UC | 5.14% |
+
+Recorded mixture indicators:
+
+- Single 100% species component:
+  219.977 ha (7.76%).
+- Multiple recorded species components:
+  2,614.232 ha (92.24%).
+- Largest recorded component 50% or less:
+  1,194.882 ha (42.16%).
+
+SP1 is verified to be a largest recorded component
+for the described polygons in this intersection.
+
+A first-listed species code does not imply a pure stand.
+
+Multiple recorded species components do not
+necessarily indicate an FBP mixedwood fuel type.
+For example, mixtures of different softwood species
+must be distinguished from softwood-hardwood mixtures.
+
+#### Interpretation
+
+The C-4 to C-2 disagreement footprint includes
+substantial variation in recorded provincial
+first-story composition.
+
+The aggregate species percentages therefore
+should not be interpreted as describing one
+representative forest stand.
+
+Both the national FBP assignments and provincial
+inventory descriptions are abstractions. Their
+different purposes, spatial support, observation
+periods and classification rules must be considered.
+
+This analysis does not determine which national
+fuel classification is more accurate.
+
+#### Next investigation
+
+Examine spatially localized differences in:
+
+- Dominant species and component proportions.
+- Softwood versus hardwood composition.
+- Provincial evidence age and completeness.
+
+Identify contrasting locations suitable for
+a paired exposure and uncertainty demonstration.
