@@ -1,0 +1,17 @@
+relative_path,size_bytes,sha256
+data/raw/fbp-2026-candidate/fss.tiff,275510270,e2522cd21dfc0380d3e3334a7302de8a3ce195aee2adb9667000ca76a560dff0
+data/raw/ns-forest-inventory/halifax-east/forest.cpg,9,9942747bdb5e6e2bd2cd515323b0d5a56451b317076eec5cfb4472c956209605
+data/raw/ns-forest-inventory/halifax-east/forest.dbf,12418452,f3d03536a1f919d5dfbc29308319519b0f0222945fd06059fa660fd22893bb62
+data/raw/ns-forest-inventory/halifax-east/forest.prj,439,c3d9674a427975338f0fc6bb5749e5dedd3a4888aae2681241b8f658968748c2
+data/raw/ns-forest-inventory/halifax-east/forest.sbn,108,867a82e6a422c2204532944c02746ef643b9a53c25f904456fef1cdfe8ef615d
+data/raw/ns-forest-inventory/halifax-east/forest.sbx,108,cea38bc7b353fdd1316c8190fe0abfdea6b1300ebc9ecb952a594751fe30d8e3
+data/raw/ns-forest-inventory/halifax-east/forest.shp,89807820,5b4517fdb83f4ca614249970fb78f9804417fbf6a66a1ddc58eb4dd8b38479f7
+data/raw/ns-forest-inventory/halifax-east/forest.shp.xml,25505,22b987f5ab1e66ed23422849b193f07f5c24f76b7714204469575cb56eef6c6f
+data/raw/ns-forest-inventory/halifax-east/forest.shx,402260,014ee58561b9534d919e9e73118905164e30d7aec4cf117b16686f0231de4066
+data/raw/ns-forest-inventory/halifax-west/forest.dbf,16054222,0cd3a64d9953378352858270b272f2eb711cbd6f36df3a55a2ee3369cee10c70
+data/raw/ns-forest-inventory/halifax-west/forest.prj,439,c3d9674a427975338f0fc6bb5749e5dedd3a4888aae2681241b8f658968748c2
+data/raw/ns-forest-inventory/halifax-west/forest.sbn,732932,905bcc3a8c45c19eac462b7b36649d10640cf1290e0bc3417baa074462e98d0f
+data/raw/ns-forest-inventory/halifax-west/forest.sbx,47324,8d90678d70c00d1ae898406f9c09b970dd4c0b39fd4189b9f6b48abf213757d2
+data/raw/ns-forest-inventory/halifax-west/forest.shp,133748912,e5c8f71415cfbc04a2d8fb48f9145dec59df8a8b0429d345dac509d594754dc2
+data/raw/ns-forest-inventory/halifax-west/forest.shp.xml,30695,d3bfa840f0d8d2912cc3c14c9b5366e128b3d743890be68c4fa477e4dfc72fc4
+data/raw/ns-forest-inventory/halifax-west/forest.shx,558452,6d0fba18faf0faf03ed4a633b3cc6fb66e73253c70812fff369ef2265e36e8f7
