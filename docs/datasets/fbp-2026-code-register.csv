@@ -5,7 +5,7 @@ value,cells,percent,meaning,verification_status
 4,4364,10.91,C-4 Immature Jack or Lodgepole Pine,verified_wms_samples
 101,3438,8.595,Non-fuel,verified_wms_samples
 11,3056,7.64,D-1 Leafless Aspen; treated as deciduous fuel,confirmed_catalogue
-3,2706,6.765,Unresolved for 2026 edition,pending
+3,2706,6.765,C-3 Mature Jack or Lodgepole Pine,verified_wms_samples
 13,1326,3.315,Vegetated fuel without effective FBP type match,confirmed_catalogue
 675,1266,3.165,Unresolved for 2026 edition,pending
 625,700,1.75,Unresolved for 2026 edition,pending
