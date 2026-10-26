@@ -1139,3 +1139,104 @@ a controlled incomplete-evidence representation.
 Evaluate whether the exposure, threshold-sensitivity,
 and evidence-coverage views communicate distinct
 information without requiring a combined score.
+
+## E06 extension — Evidence-coverage visualization
+
+**Date:** 2026-10-26
+**Status:** Completed
+**Type:** Synthetic methodology visualization
+
+### Objective
+
+Demonstrate that identical directional viability
+classifications can conceal differences in the
+availability of supporting exposure measurements.
+
+### Reproducible outputs
+
+Source data:
+- `outputs/e06_coverage_comparison.csv`
+
+Scripts:
+- `scripts/export_e06_coverage_comparison.R`
+- `scripts/plot_e06_evidence_coverage.R`
+
+Figure:
+- `outputs/figures/e06_evidence_coverage.png`
+
+### Experimental comparison
+
+Two synthetic exposure representations were assessed:
+
+1. Measured low exposure in the western half,
+   with high exposure in the eastern half.
+2. Missing exposure measurements in the western
+   half, with the same high exposure in the east.
+
+The directional viability classifications agreed
+for all 108 corresponding segments.
+
+### Evidence-coverage results
+
+The comparison dataset contains 216 records:
+108 directional segments per scenario.
+
+Mean evidence coverage:
+
+| Scenario | Mean coverage |
+|---|---:|
+| Measured low exposure | 1.00 |
+| Missing western evidence | 0.50 |
+
+The measured scenario has complete evidence
+coverage in every direction.
+
+The missing-evidence scenario has complete
+coverage in the east and no coverage in the west.
+
+### Visualization
+
+The paired directional diagrams use identical
+geometry, distance segments, and colour scales.
+
+Fill colour represents the fraction of each
+directional segment containing nonmissing
+exposure measurements.
+
+The figure intentionally omits viability borders
+to isolate evidence completeness.
+
+### Interpretation
+
+The two assessments produce identical binary
+directional classifications despite different
+evidence conditions.
+
+The evidence-coverage visualization reveals
+that difference directly.
+
+This supports communicating evidence availability
+separately from exposure support and threshold
+sensitivity.
+
+### Limitations
+
+- Entirely synthetic exposure representations
+- Deliberately imposed missing-data boundary
+- No partial coverage within individual segments
+  in this visualization
+- Coverage describes availability, not accuracy
+- No real wildfire exposure observations
+- No operational safety interpretation
+
+### Next step
+
+Evaluate a combined presentation containing:
+
+1. Baseline directional exposure
+2. Threshold-grid viability
+3. Directional evidence coverage
+
+Assess whether the three views remain independently
+interpretable and whether their differences
+help identify where further evidence is needed.
