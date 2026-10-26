@@ -3590,3 +3590,117 @@ Review the spatial products and determine the most
 interpretable design for Picture 2, including whether
 Westwood Hills should be paired with a contrasting
 neighbourhood.
+
+## D09.26 — Selected visualization workflow
+
+**Date:** 2026-10-26
+**Status:** Four selected figures reproduced and verified
+
+### Purpose
+
+Complete the initial D09 paired-visualization
+demonstration using the verified exposure and
+sensitivity rasters.
+
+The figure selection and reproduction details are
+recorded in `docs/d09_selected_figures.md`.
+
+### Selected visual products
+
+Figure 1A:
+`outputs/figures/d09_satellite_exposure_grayscale_45.png`
+
+Figure 1B:
+`outputs/figures/d09_cartographic_exposure_grayscale_45.png`
+
+Figure 2A:
+`outputs/figures/d09_conifer_stability_map_v2.png`
+
+Figure 2B:
+`outputs/figures/d09_unresolved_sensitivity_map_v2.png`
+
+### Shared geographic design
+
+- Study focus: Westwood Hills, Upper Tantallon.
+- Viewing extent: 6 x 8 km.
+- Map CRS: EPSG:3978.
+- Annotated analytical blocks: 25, 35, 44.
+- Reference point: Westwood Hills.
+
+Figure 1 uses an identical exposure raster,
+colour scale, classification breaks, and
+45% overlay opacity on both grayscale basemaps.
+
+The underlying satellite imagery and conventional
+cartographic map provide different geographic
+contexts for the same calculated exposure.
+
+### Figure 2 interpretation
+
+Panel 2A:
+Sensitivity of the direction of the calculated
+2026-minus-2024 exposure comparison to opposing
+hypothetical C-2/C-4 assignments.
+
+Panel 2B:
+Sensitivity of the 2026 reference exposure to
+alternative assignments of unresolved code 13.
+
+Neither panel is a probability of error or a
+validated wildfire-risk uncertainty estimate.
+
+### Reproducibility
+
+Maintained entry point:
+
+`scripts/d09_render_selected_figures.R`
+
+Three selected rendering implementations are
+invoked by this entry point.
+
+A dry-run confirmed all required files.
+
+A full regeneration produced all four selected
+figures successfully.
+
+Independent decoded-pixel comparison with preserved
+originals showed zero differences across all four
+figures in the tested local environment.
+
+**Reproduction verification:** PASSED.
+
+### Limitations
+
+- Experimental binary fuel assignments are not
+  validated physical hazard classifications.
+- The 500 m exposure calculation represents a
+  neighbourhood proportion, not fire probability.
+- Sensitivity findings are deterministic and apply
+  only to the tested assumptions.
+- OpenStreetMap and Esri basemaps are external
+  dependencies.
+- Satellite imagery acquisition dates remain
+  unverified.
+- Reproducibility across future basemap revisions
+  has not been established.
+
+### Repository cleanup
+
+Four selected figures and four maintained rendering
+scripts were retained.
+
+Superseded PNGs and exploratory rendering scripts
+were removed locally.
+
+### Future investigation
+
+Consider the 2019 FBP edition and an authoritative
+2023 Tantallon fire perimeter in a separate
+historical comparison.
+
+Source dates, classification differences, and the
+effects of the 2023 fire must be distinguished
+before interpreting edition differences as actual
+landscape change.
+
+No historical comparison was conducted in D09.
