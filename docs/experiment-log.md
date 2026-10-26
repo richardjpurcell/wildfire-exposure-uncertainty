@@ -2003,3 +2003,46 @@ classifications, and unresolved semantic differences.
 
 Then investigate the spatial distribution and possible
 source-evidence explanations for the dominant discrepancies.
+
+### D06 — Broad fuel-family comparison (2026-10-26)
+
+**Status:** Completed and reproducibly verified
+
+Compared the 2024 and 2026 classification pairs using
+version-specific analytical fuel-family groupings.
+
+Script:
+`scripts/d06_fbp_family_comparison.R`
+
+Outputs:
+- `outputs/tables/d06_fbp_family_summary.csv`
+- `outputs/tables/d06_fbp_family_cross_tab.csv`
+
+Results across 40,000 paired cells:
+
+| Category | Cells | Percent |
+|---|---:|---:|
+| Same code, same family | 16,700 | 41.7500% |
+| Different code, same family | 7,234 | 18.0850% |
+| Same code, different family | 303 | 0.7575% |
+| Different code, different family | 15,763 | 39.4075% |
+
+Total different-family assignments:
+16,066 cells (40.1650%).
+
+The 303 same-code/different-family cells correspond
+to code 13, whose documented descriptions differ
+between the 2024 and 2026 registers.
+
+The broad families are analytical groupings, not
+an official NRCan cross-edition equivalence scheme.
+
+Special categories such as water, non-fuel, vegetated
+non-fuel, and unmatched vegetation remain distinct.
+
+These findings describe disagreement between mapped
+products. They do not establish landscape change,
+classification accuracy, or wildfire exposure change.
+
+Next: map the spatial distribution of disagreement
+categories and investigate selected concentrations.
