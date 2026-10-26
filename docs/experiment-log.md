@@ -1594,3 +1594,130 @@ species descriptions.
 Retain clear-cut and other mapped disturbance classifications
 rather than treating all absent species descriptions as
 missing observations.
+
+## D03 — Provincial forest evidence-status coverage
+
+### Objective
+
+Represent the availability and classification of provincial
+forest-inventory evidence on the same 100 m grid as the
+2026 federal FBP study raster.
+
+Preserve mixed evidence within individual grid cells instead
+of prematurely assigning one category to an entire cell.
+
+### Study data
+
+- Nova Scotia Halifax West interpreted forest inventory.
+- Reference: 2026 FBP candidate raster, 200 x 200 cells.
+- Study window: Westwood Hills / Upper Tantallon.
+- Provincial forested land: `LNDCLASS = 99`.
+- Intersecting forested polygon records: 4,810.
+
+### Evidence categories
+
+Three principal categories are defined from the provincial
+species-description fields:
+
+1. Named species composition.
+2. Explicitly unclassified species (`SPECIES = UC10`).
+3. No first-story species description.
+
+A fourth layer identifies records in category 3 that have
+the clear-cut classification (`FORNON = 60`).
+
+The clear-cut layer is a subset, not an additional mutually
+exclusive forest-coverage category.
+
+### Spatial method
+
+Provincial polygons are clipped to the study boundary,
+restricted to the forested land class, and transformed into
+the federal raster coordinate system.
+
+Each evidence category is rasterized separately using
+`terra::rasterize(..., cover = TRUE)`.
+
+Raster cell values represent approximate fractional coverage
+between zero and one.
+
+Geographically corrected cell areas are used when reporting
+hectares.
+
+### Results
+
+| Evidence category | Polygons | Intersected cells | Area (ha) |
+|---|---:|---:|---:|
+| Named species composition | 4,372 | 29,866 | 21,670.81 |
+| Explicitly unclassified species | 150 | 2,238 | 1,071.93 |
+| No first-story species description | 288 | 3,290 | 1,512.03 |
+| Clear-cut subset | 238 | 2,814 | 1,299.49 |
+
+The three principal categories reconstruct a total
+forest-covered area of 24,254.77 ha.
+
+### Validation
+
+The three principal category rasters were summed cell by cell
+and compared with an independently rasterized total
+forest-coverage layer.
+
+Results:
+
+- Maximum absolute cell difference: approximately 4.10e-8.
+- Mean absolute cell difference: approximately 1.31e-8.
+- Cells differing by more than 0.001: zero.
+- Cells with reconstructed coverage above 1.01: zero.
+- Reconstructed and reference forest areas: 24,254.77 ha.
+- Clear-cut coverage exceeding no-description coverage:
+  zero cells.
+
+These results demonstrate internal spatial consistency
+to numerical precision.
+
+### Interpretation
+
+The provincial inventory can represent multiple evidence
+conditions within the same federal raster cell.
+
+Named species, explicitly unclassified species, and absent
+first-story descriptions remain separate.
+
+Mapped clear cuts are also distinguished from generic
+absence of species information.
+
+Evidence-category coverage is not itself a measure of
+observation accuracy or current vegetation condition.
+
+### Limitations
+
+- Fractional rasterization approximates polygon boundaries.
+- The categories describe available inventory information,
+  not probabilities of correctness.
+- Named species composition may derive from older observations.
+- No first-story description does not necessarily imply an
+  evidentiary failure.
+- Provincial evidence categories have not yet been converted
+  into federal FBP fuel classifications.
+- No empirical exposure comparison has yet been performed.
+
+### Reproducible artifacts
+
+Script:
+`scripts/d03_provincial_evidence_coverage.R`
+
+Generated rasters, excluded from Git:
+
+- `data/processed/provincial-evidence/named_species_100m.tif`
+- `data/processed/provincial-evidence/unclassified_species_100m.tif`
+- `data/processed/provincial-evidence/no_first_story_description_100m.tif`
+- `data/processed/provincial-evidence/clearcut_no_description_100m.tif`
+
+### Next step
+
+Visualize the provincial evidence categories on the common
+100 m grid.
+
+Use the validated coverage layers to examine the spatial
+relationship between evidence availability, provincial
+forest classifications, and federal FBP fuel categories.
