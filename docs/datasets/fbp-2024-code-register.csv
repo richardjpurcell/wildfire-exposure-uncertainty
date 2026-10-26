@@ -1,0 +1,14 @@
+value,meaning,verification_status
+2,C-2 Boreal Spruce,confirmed_2024_wms_style
+3,C-3 Mature Jack or Lodgepole Pine,confirmed_2024_wms_style
+4,C-4 Immature Jack or Lodgepole Pine,confirmed_2024_wms_style
+11,D-1 Leafless Aspen,confirmed_2024_wms_style
+13,D-1/D-2 Aspen,confirmed_2024_wms_style
+31,O-1a Matted Grass,confirmed_2024_wms_style
+101,Non-fuel,confirmed_2024_wms_style
+102,Water,confirmed_2024_wms_style
+105,Vegetated Non-Fuel,confirmed_2024_wms_style
+415,M-1 Boreal Mixedwood - Leafless (15% Conifer),confirmed_2024_wms_style
+625,M-1/M-2 Boreal Mixedwood - Green (25% Conifer),confirmed_2024_wms_style
+650,M-1/M-2 Boreal Mixedwood - Green (50% Conifer),confirmed_2024_wms_style
+675,M-1/M-2 Boreal Mixedwood - Green (75% Conifer),confirmed_2024_wms_style
