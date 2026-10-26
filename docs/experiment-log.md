@@ -3704,3 +3704,27 @@ before interpreting edition differences as actual
 landscape change.
 
 No historical comparison was conducted in D09.
+
+## D10.16 — Directional viability and threshold stability
+
+**Date:** 2026-10-26
+**Status:** Initial paired directional visualization completed
+
+- Westwood Hills reference point, EPSG:3978.
+- 36 bearings and three successive nominal 2 km segments.
+- 108 baseline classifications: 42 viable, 66 nonviable.
+- All 108 classifications reproduced independently.
+- Exact exposure-raster coverage: 108 complete segments.
+- 72 threshold combinations and 7,776 verified evaluations.
+- Across the threshold grid: 21 never viable,
+  79 variable, and 8 always viable segments.
+- Two geographic maps retained for visual comparison.
+- Initial rendering prototypes removed.
+- Analytical thresholds remain experimental.
+- No wildfire spread or operational safety claims.
+
+Detailed methods, figures, and limitations are
+documented in `docs/d10_directional_visualization.md`.
+
+Further work will assess sensitivity to alternative
+fuel representations.
