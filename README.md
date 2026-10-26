@@ -36,6 +36,36 @@ The investigation will consider four principal landscape representations:
 
 These products may differ in observation dates, classification methods, spatial resolution, and underlying evidence. Differences between them will not automatically be interpreted as classification errors.
 
+### 2026 FBP fuel-code interpretation
+
+The local 2026 FBP candidate raster has been clipped to a
+20 km by 20 km study window containing 40,000 cells at 100 m
+resolution.
+
+All 12 numerical codes observed in the study window now have
+documented interpretations in
+[`docs/datasets/fbp-2026-code-register.csv`](docs/datasets/fbp-2026-code-register.csv).
+
+Verification evidence consists of:
+
+- Nine codes checked at four local raster-cell locations each
+  against the official 2026 100 m FBP WMS.
+- One code (C-1) checked at its only occurrence in the study window.
+- Two codes (11 and 13) interpreted using catalogue documentation.
+
+The reproducible WMS query procedure is implemented in
+[`scripts/verify_fbp_2026_wms.py`](scripts/verify_fbp_2026_wms.py).
+
+Important classification distinctions include:
+
+- Code 101: Non-fuel.
+- Code 102: Water.
+- Code 13: Vegetated fuel without an effective FBP type match.
+
+Complete interpretation of the numerical vocabulary does not
+establish current vegetation conditions, source-data accuracy,
+or classification stability across different map editions.
+
 ## Experimental approach
 
 The investigation is organized into four layers:

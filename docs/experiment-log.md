@@ -1412,3 +1412,104 @@ examining the available federal FBP fuel maps from 2019,
 Document differences in provenance, spatial coverage,
 classification, and resolution before drawing conclusions
 from cross-dataset comparisons.
+
+## 2026-10-26 — 2026 FBP fuel-code interpretation
+
+### Objective
+
+Establish the meanings of all numerical classifications
+present in the local 2026 FBP candidate raster before using
+it in exposure and uncertainty assessments.
+
+### Study data
+
+The study window contains 40,000 cells at 100 m resolution.
+
+The numerical-code inventory is recorded in:
+
+- `outputs/d02_fbp_2026_code_counts.csv`
+- `docs/datasets/fbp-2026-code-register.csv`
+
+### Verification procedure
+
+Numerical values were read from the local GeoTIFF.
+
+Selected cell-centre coordinates were submitted to the
+official 2026 100 m FBP Web Map Service using WMS
+GetFeatureInfo with an HTML response.
+
+Service:
+`https://ca.nfis.org/mapserver/cgi-bin/fbp_eng.cgi`
+
+Layer:
+`fpb100m2026`
+
+Reproducible verification script:
+`scripts/verify_fbp_2026_wms.py`
+
+For nine numerical codes, four sampled locations returned
+consistent classifications.
+
+Code 1 occurred in only one cell, so its classification
+was verified at that single location.
+
+Codes 11 and 13 retain their catalogue-supported
+interpretations.
+
+### Results
+
+All 12 observed numerical codes now have documented meanings.
+
+Verification coverage:
+
+| Verification basis | Codes | Cells | Study-area share |
+|---|---|---:|---:|
+| Four WMS samples per code | 2, 3, 4, 31, 101, 102, 625, 650, 675 | 35,617 | 89.0425% |
+| Catalogue interpretation | 11, 13 | 4,382 | 10.9550% |
+| Single WMS sample | 1 | 1 | 0.0025% |
+| Total | 12 observed codes | 40,000 | 100% |
+
+Mixedwood classifications include separate 25%, 50%,
+and 75% conifer categories.
+
+The raster also distinguishes Non-fuel (101),
+Water (102), and vegetation without an effective
+FBP classification match (13).
+
+### Interpretation
+
+The numerical vocabulary of the local 2026 raster
+is now fully interpreted.
+
+This resolves uncertainty about what the observed
+numerical values represent in the map product.
+
+It does not resolve uncertainty about whether the
+underlying classifications accurately describe
+current landscape conditions.
+
+### Limitations
+
+- WMS comparisons were sampled, not exhaustive.
+- Code 1 has only one location-level verification.
+- Catalogue-based and WMS-based interpretations
+  have different verification provenance.
+- Agreement with the WMS is not ground validation.
+- Classification labels do not independently establish
+  measured species proportions or stand maturity.
+- The raster's production date does not establish
+  the observation date of every cell.
+- No agreement with the 2019, 2024, or Nova Scotia
+  provincial classifications has yet been established.
+- Full code interpretation does not imply complete
+  or sufficient evidence for exposure assessment.
+
+### Next step
+
+Document the spatial and classification relationships
+between the interpreted 2026 FBP raster and the
+Nova Scotia provincial forest inventory.
+
+Keep unavailable evidence, unclassified vegetation,
+non-fuel land, and classified fuels distinct before
+constructing empirical exposure scenarios.
