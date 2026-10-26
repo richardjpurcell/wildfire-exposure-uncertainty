@@ -1936,3 +1936,70 @@ excluded from Git.
 Next: paired 2024–2026 classification comparison with
 version-specific code meanings and explicit uncertainty
 about source and representation differences.
+
+### D06 — Paired 2024–2026 classification baseline (2026-10-26)
+
+**Status:** Initial cross-tabulation verified
+
+### Method
+
+Compared the aligned 2024 and 2026 FBP classification
+rasters on the same 200 × 200, 100 m study grid.
+
+Both editions were interpreted through their respective
+documented numeric code registers.
+
+Reproducible script:
+`scripts/d06_fbp_2024_2026_cross_tab.R`
+
+Result:
+`outputs/tables/d06_fbp_2024_2026_cross_tab.csv`
+
+### Results
+
+- Paired cells: 40,000
+- Observed 2024 codes: 13
+- Observed 2026 codes: 12
+- Possible classification combinations: 156
+- Same numeric code: 17,003 (42.51%)
+- Different numeric code: 22,997 (57.49%)
+- Both editions use code 13: 303 cells
+
+Five largest different-code pairs:
+
+| 2024 code | 2026 code | Cells |
+|---|---|---:|
+| 4 | 2 | 3,568 |
+| 675 | 2 | 1,607 |
+| 11 | 650 | 1,289 |
+| 4 | 650 | 1,138 |
+| 4 | 3 | 1,119 |
+
+### Interpretation
+
+These are differences between two mapped FBP products.
+They are not direct evidence of changes in forest cover,
+fuel conditions, wildfire exposure, or classification accuracy.
+
+Numeric agreement is not equivalent to semantic agreement.
+
+In particular, 303 cells use code 13 in both editions,
+but the documented descriptions differ:
+
+- 2024: D-1/D-2 Aspen
+- 2026: Vegetated fuel without effective FBP type match
+
+The cause of this apparent dictionary difference remains
+to be investigated.
+
+The largest different-code pair is 2024 code 4 versus
+2026 code 2. This is a difference in mapped fuel type,
+not evidence that one forest type physically became another.
+
+### Next investigation
+
+Distinguish numeric agreement, comparable fuel-family
+classifications, and unresolved semantic differences.
+
+Then investigate the spatial distribution and possible
+source-evidence explanations for the dominant discrepancies.
