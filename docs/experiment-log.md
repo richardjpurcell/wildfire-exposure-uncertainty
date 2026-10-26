@@ -3149,3 +3149,137 @@ sensitivity to representation choices and
 the completeness of the underlying evidence.
 
 No maps were generated for this milestone.
+
+## D09 — Reference exposure raster export
+
+**Date:** 2026-10-26
+**Status:** Completed; independently verified
+
+### Purpose
+
+Establish one reproducible reference exposure surface
+that can be displayed identically over satellite imagery
+and a conventional cartographic basemap.
+
+This implements the reference-exposure requirement in
+`docs/d09_paired_visualization_spec.md`.
+
+### Source and method
+
+- National fuel representation: 2026 FBP candidate.
+- Study region: Westwood Hills / Upper Tantallon.
+- Grid: 200 × 200 cells, 100 m resolution.
+- CRS: EPSG:3978.
+- Exposure method: `fireexposuR` 1.2.0.
+- Transmission distance: 500 m.
+- Valid interior: 36,100 cells.
+
+The fuel-to-hazard transformation follows the
+previously verified D08 broad binary experiment.
+
+Recognized vegetation is assigned 1.
+Explicit water and non-fuel are assigned 0.
+Unresolved 2026 code 13 is assigned 0 for this
+specific reference calculation.
+
+This is an illustrative computational representation,
+not a validated long-range wildfire transmission
+classification.
+
+### Reference exposure results
+
+| Measurement | Result |
+|---|---:|
+| Recognized vegetation input cells | 28,669 |
+| Explicit non-fuel input cells | 10,005 |
+| Unresolved input cells | 1,326 |
+| Valid exposure cells | 36,100 |
+| Mean reference exposure | 0.7124398 |
+| Median reference exposure | 0.8000 |
+| Minimum reference exposure | 0 |
+| Maximum reference exposure | 1 |
+
+The output reproduces the 2026 lower-assignment
+surface from the maintained D08 binary experiment.
+
+### Generated spatial products
+
+Reference exposure:
+
+`data/processed/visualization/d09_reference_exposure_2026_500m.tif`
+
+Input-status classification:
+
+`data/processed/visualization/d09_reference_input_status_2026.tif`
+
+Input-status codes:
+
+- 0: explicit non-fuel or water.
+- 1: recognized vegetation.
+- 2: unresolved classification.
+
+The input-status raster is categorical. It must not
+be interpreted as an exposure or uncertainty score.
+
+Both GeoTIFFs are local generated outputs excluded
+from version control by the `/data/processed/` rule.
+
+### Tracked reproducibility artifacts
+
+Script:
+
+`scripts/d09_export_reference_exposure.R`
+
+Metadata:
+
+`outputs/tables/d09_reference_exposure_metadata.csv`
+
+The committed script should regenerate the GeoTIFFs
+from the project's processed 2026 FBP raster.
+
+### Independent verification
+
+A separate R diagnostic confirmed:
+
+- Matching source, exposure, and status geometry.
+- Exactly 36,100 valid exposure cells.
+- Exact reconciliation of all input-status counts.
+- Agreement with a fresh `fire_exp()` calculation.
+- Maximum absolute difference: approximately 2.38e-8.
+- Agreement with exported metadata.
+
+**Verification status:** PASSED.
+
+### Visualization constraints
+
+The reference exposure raster must be identical
+between Picture 1A and Picture 1B.
+
+Only the basemap should differ.
+
+The satellite and cartographic renderings should
+use the same:
+
+- geographic extent
+- exposure colour scale
+- opacity
+- classification thresholds
+- legends and units
+
+Satellite imagery supplies visible landscape context,
+not independent confirmation of current FBP fuel types.
+
+Unresolved input assignments must be disclosed and
+examined separately through the stability/evidence view.
+
+### Next investigation
+
+Prepare separate spatial sensitivity layers for:
+
+1. unresolved-category assignment sensitivity
+2. C-2/C-4 representation sensitivity
+
+Do not combine these into an unexplained
+uncertainty index.
+
+No maps were produced in this step.
