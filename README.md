@@ -73,25 +73,25 @@ The following figures show complementary aspects of the assessment. They are not
 
 ### Reference exposure
 
-![2026 reference exposure](outputs/figures/d09_cartographic_exposure_grayscale_45.png)
+<p align="center"><img src="outputs/figures/d09_cartographic_exposure_grayscale_45.png" alt="2026 reference exposure" width="70%"></p>
 
 *The 2026 reference exposure surface, calculated using a 500 m analytical neighbourhood. Exposure represents a proportion of cells assigned hazardous status, not the probability that a location will burn.*
 
 ### Unresolved-input sensitivity
 
-![Unresolved fuel classification sensitivity](outputs/figures/d09_unresolved_sensitivity_map_v2.png)
+<p align="center"><img src="outputs/figures/d09_unresolved_sensitivity_map_v2.png" alt="Unresolved fuel classification sensitivity" width="70%"></p>
 
 *Change in calculated exposure when unresolved 2026 fuel inputs are assigned one rather than zero. This identifies sensitivity to a specified classification assumption, not total uncertainty or classification error.*
 
 ### Directional threshold sensitivity
 
-![Directional threshold sensitivity](outputs/figures/d10_threshold_stability_preliminary.png)
+<p align="center"><img src="outputs/figures/d10_threshold_stability_preliminary.png" alt="Directional threshold sensitivity" width="70%"></p>
 
 *Fraction of 72 tested threshold combinations producing a viable classification for each directional segment. These fractions are not calibrated probabilities.*
 
 ### Four-scenario directional stability
 
-![Four-scenario directional stability](outputs/figures/d11_four_scenario_directional_stability.png)
+<p align="center"><img src="outputs/figures/d11_four_scenario_directional_stability.png" alt="Four-scenario directional stability" width="70%"></p>
 
 *Panel A distinguishes directional classifications that remain viable, remain nonviable, or vary across four landscape scenarios. Panel B identifies robust cross-edition differences under the tested unresolved-category assignments. Neither panel identifies safe directions or historical environmental change.*
 
