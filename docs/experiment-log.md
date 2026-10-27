@@ -3937,9 +3937,9 @@ The revised PNG was independently checked:
 - Changed classifications: 16.
 - Unchanged classifications: 92.
 
-The initial rendering was visually inspected.
-The subsequent label refinements passed syntax and
-structural checks; final visual confirmation remains.
+The initial rendering and subsequent label
+refinements were visually inspected and accepted
+before the D11.3 milestone was committed.
 
 ### Reproducibility
 
@@ -3981,3 +3981,275 @@ verified D11 findings into the README.
 Consider a separate continuous support-change
 visualization if it adds information beyond the
 binary transition map.
+
+## D11.4 — Directional stability across 2024 and 2026 FBP representations
+
+**Date:** 2026-10-26
+**Status:** Analysis independently verified; visualization reviewed
+
+### Purpose
+
+Evaluate whether the Westwood Hills directional
+classifications remain stable across two FBP map
+representations and alternative assignments of
+unresolved fuel categories.
+
+D11.2A varied an unresolved category within the
+2026 representation. D11.4 extends the assessment
+to both the 2024 and 2026 FBP representations.
+
+The experiment evaluates sensitivity to available
+landscape representations. It does not measure
+historical changes in actual fuel conditions.
+
+### Experimental scenarios
+
+Four complete exposure surfaces were calculated:
+
+| Scenario | Unresolved assignment | Viable segments |
+| --- | --- | ---: |
+| 2024 lower | Code 105 = 0 | 53 |
+| 2024 upper | Code 105 = 1 | 82 |
+| 2026 lower | Code 13 = 0 | 42 |
+| 2026 upper | Code 13 = 1 | 58 |
+
+Recognized vegetation and explicit non-fuel
+categories retain the classification rules
+established in D08.
+
+The two representations use the same aligned
+100 m grid in EPSG:3978.
+
+Exposure is calculated with `fire_exp()` using
+a 500 m transmission distance.
+
+The directional assessment holds constant:
+
+- The Westwood Hills reference point.
+- 36 bearings at 10-degree intervals.
+- Three successive nominal 2 km segments per bearing.
+- All 108 directional geometries.
+- Exposure threshold 0.60.
+- Viability threshold 0.80.
+
+### Numerical representation and threshold boundary
+
+An initial in-memory calculation reproduced
+the D08 regional exposure means but did not
+reproduce the established D10 and D11.2A
+directional viability counts.
+
+The newly calculated 2026 surfaces yielded
+40 and 54 viable segments, compared with the
+saved D09-based counts of 42 and 58.
+
+The maximum absolute exposure difference
+between the calculated and saved surfaces was
+approximately 2.38418579e-08.
+
+Further diagnostics identified exposure cells
+at the threshold boundary:
+
+- 395 cells in the 2026 lower scenario.
+- 338 cells in the 2026 upper scenario.
+
+These cells did not disagree under an
+`exposure >= 0.60` test, but disagreed under
+the actual `terra::classify()` high-exposure
+classification used in directional assessment.
+
+In memory, the relevant values were represented
+as 0.60. The saved float32 representation
+read back as approximately 0.60000002384185791.
+
+The experiment therefore normalizes all four
+calculated exposure surfaces to IEEE 754
+single precision before directional assessment.
+
+Following normalization:
+
+- All 36,100 finite exposure values in each
+  2026 scenario matched the saved D09 values.
+- The established 42/58 directional counts
+  were reproduced.
+- All 108 historical classifications matched
+  in both 2026 scenarios.
+
+This is a numerical reproducibility requirement,
+not evidence of fuel-representation uncertainty.
+The thresholds themselves were not changed.
+
+### Classification stability across scenarios
+
+Of the 108 directional segments:
+
+| Stability category | Segments |
+| --- | ---: |
+| Always viable | 38 |
+| Always nonviable | 22 |
+| Variable | 48 |
+| Total | 108 |
+
+Sixty segments (55.6%) retain the same binary
+classification across all four scenarios.
+
+Forty-eight (44.4%) vary under at least one
+tested representation or unresolved assignment.
+
+The variable classifications are distributed
+by distance segment as follows:
+
+| Segment | Always viable | Always nonviable | Variable |
+| --- | ---: | ---: | ---: |
+| Segment 1 | 8 | 2 | 26 |
+| Segment 2 | 9 | 13 | 14 |
+| Segment 3 | 21 | 7 | 8 |
+
+The nearest segment contains the greatest
+number of variable classifications.
+
+This spatial association does not by itself
+establish the reason for the sensitivity.
+
+### Within-edition sensitivity
+
+Changing the unresolved assignment changes
+the binary classification of:
+
+- 29 segments in the 2024 representation.
+- 16 segments in the 2026 representation.
+
+The within-edition lower-to-upper support
+and binary classifications are monotonic
+under the tested assignments.
+
+These sensitivity sets can overlap with
+cross-edition differences and should not be
+added to the overall variable count.
+
+### Robust edition differences
+
+Eleven segments differ between the editions
+under both tested unresolved assignments:
+
+- Nine are viable in both 2024 scenarios and
+  nonviable in both 2026 scenarios.
+- Two are nonviable in both 2024 scenarios and
+  viable in both 2026 scenarios.
+
+The remaining 97 do not have robustly
+separated binary classifications between
+editions under these specific bounds.
+
+The 11 robust edition differences are included
+within the 48 variable classifications,
+not additional to them.
+
+These results demonstrate differences between
+the experimental map representations.
+They do not demonstrate actual environmental
+change between 2024 and 2026.
+
+### Verification
+
+The maintained analysis confirmed:
+
+- Agreement with all four D08 regional means.
+- Exact finite-value agreement with saved
+  D09 2026 exposure rasters after normalization.
+- Reproduction of all 108 D10 baseline
+  directional classifications.
+- Reproduction of all 108 D11.2A alternative
+  directional classifications.
+- Package/reconstruction agreement for all
+  108 segments in each of four scenarios.
+- Agreement of all directional geometries
+  across the four scenarios.
+- Within-edition monotonicity.
+- The 38/22/48 stability partition.
+- The nine/two robust edition differences.
+
+An independent Python CSV audit checked
+all 108 saved records, category assignments,
+scenario counts, support bounds, reference
+classifications, and edition differences.
+
+The audit passed.
+
+### Visualization
+
+The reviewed two-panel figure presents:
+
+**Panel A:** Always viable, always nonviable,
+and variable classifications across the
+four scenarios.
+
+**Panel B:** Eleven robust edition differences,
+with the remaining 97 segments subdued.
+
+The figure retains the D10/D11 geographic
+conventions, including the Westwood Hills
+reference point, directional geometry,
+grayscale OpenStreetMap basemap, and
+approximate 2, 4, and 6 km distance rings.
+
+The final PNG was visually reviewed and accepted.
+
+Dimensions: 3600 x 1900 pixels.
+
+### Reproducibility
+
+Maintained analysis:
+
+`scripts/d11_four_scenario_directional_stability.R`
+
+Verified segment-level results:
+
+`outputs/tables/d11_four_scenario_directional_stability.csv`
+
+Maintained renderer:
+
+`scripts/d11_render_four_scenario_stability.R`
+
+Reviewed visualization:
+
+`outputs/figures/d11_four_scenario_directional_stability.png`
+
+The rendering reuses the D10 OpenStreetMap
+basemap configuration and tile cache.
+
+### Interpretation and limitations
+
+This experiment distinguishes directional
+classifications that remain stable across
+tested representations from classifications
+that depend on those representations.
+
+The results are conditional on the selected
+map editions, fuel-code assignments, exposure
+model, thresholds, and directional geometry.
+
+An always-viable classification does not
+establish a safe direction.
+
+An always-nonviable classification does not
+establish that an area is unusable.
+
+A robust edition difference does not prove
+that real landscape conditions changed.
+
+The binary assignments used for unresolved
+categories are hypothetical bounds, not
+validated fire-transmission classifications.
+
+Complete calculated exposure coverage does
+not establish completeness or reliability
+of the underlying landscape evidence.
+
+### Next step
+
+Integrate the verified D11.4 results and
+reviewed two-panel figure into the README.
+
+Retain the distinction between within-edition
+uncertainty and robust cross-edition differences.

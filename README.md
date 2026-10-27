@@ -386,6 +386,88 @@ The experiment, numerical verification, rendering
 method, and limitations are recorded in the
 [D11 experiment entries](docs/experiment-log.md).
 
+#### D11.4 — Stability across 2024 and 2026 FBP representations
+
+D11.4 extends the directional analysis to four
+exposure scenarios: lower and upper unresolved-category
+assignments for both the 2024 and 2026 FBP
+representations.
+
+The analysis retains the same Westwood Hills reference
+point, 108 directional geometries, 500 m exposure
+calculation, and thresholds of 0.60 and 0.80.
+
+The unresolved assignments are code 105 for 2024
+and code 13 for 2026. They are hypothetical binary
+interpretations, not validated fuel classifications.
+
+![Directional stability and robust edition differences](outputs/figures/d11_four_scenario_directional_stability.png)
+
+*Figure. Panel A distinguishes classifications that
+remain viable, remain nonviable, or vary across all
+four scenarios. Panel B identifies differences between
+the two FBP representations that persist under both
+tested unresolved-category assignments. Neither panel
+identifies safe directions or observed environmental
+change.*
+
+The number of viable segments differs by scenario:
+
+| Representation | Lower | Upper |
+| --- | ---: | ---: |
+| 2024 FBP | 53 | 82 |
+| 2026 FBP | 42 | 58 |
+
+Across the 108 directional segments:
+
+| Classification stability | Segments |
+| --- | ---: |
+| Always viable | 38 |
+| Always nonviable | 22 |
+| Variable | 48 |
+
+**Sixty segments (55.6%) retain their binary
+classification across all four scenarios.**
+The remaining 48 (44.4%) vary under at least
+one tested representation or unresolved assignment.
+
+Eleven of the variable segments show robust
+differences between the editions:
+
+- Nine are viable under both 2024 assignments
+  and nonviable under both 2026 assignments.
+- Two are nonviable under both 2024 assignments
+  and viable under both 2026 assignments.
+
+These eleven are **part of the 48 variable segments**,
+not an additional category.
+
+Sensitivity is unevenly distributed across distance
+segments: 26 variable classifications occur in the
+nearest segment, 14 in the middle segment, and eight
+in the outer segment.
+
+The analysis also identified a numerical
+reproducibility requirement. Exposure values at the
+0.60 classification boundary behaved differently
+in newly calculated double-precision surfaces and
+saved single-precision rasters. Normalizing all
+four surfaces to float32 reproduced the established
+D10/D11 classifications without altering the
+analytical thresholds.
+
+The result demonstrates that directional conclusions
+can depend on both the selected map representation
+and the treatment of unresolved landscape evidence.
+It does **not** establish historical changes in fuel
+conditions, identify safer directions, or determine
+which representation is more accurate.
+
+The calculation, independent CSV verification,
+numerical-boundary diagnostic, and visualization
+are documented in the
+[D11.4 experiment record](docs/experiment-log.md).
+
 ### Synthetic methodology findings
 
 **E01 — Continuous directional support reconstruction**
