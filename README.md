@@ -182,3 +182,11 @@ Technical material is organized as follows:
 - [Output tables](outputs/tables/): numerical results where applicable.
 
 **Project status:** Synthetic experiments E01–E07 and empirical experiments through D11.4 are complete and documented. Further expansion, including the 2019 FBP representation, is deferred pending a distinct research question.
+
+### AI usage statement
+
+ChatGPT (OpenAI) was used to assist with code development, debugging,
+documentation, and editorial refinement throughout this project. The
+analytical approach, experimental decisions, interpretation of results,
+and validation of outputs remained the responsibility of the author.
+AI-assisted outputs were reviewed and tested before inclusion.
