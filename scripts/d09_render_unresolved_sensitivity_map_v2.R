@@ -156,9 +156,11 @@ out <- file.path(
   "d09_unresolved_sensitivity_map_v2.png"
 )
 
-png(out, width = 1800, height = 2400, res = 200)
+png(out, width = 1800, height = 2920, res = 200)
 
 tryCatch({
+
+  layout(matrix(c(1, 2), ncol = 1), heights = c(8.5, 2.1))
 
   par(mar = c(2.6, 0.3, 1.7, 0.3))
 
@@ -221,45 +223,72 @@ tryCatch({
     line = 0.2
   )
 
-  legend(
-    "topright",
-    inset = 0.02,
-    legend = c(
-      "No sensitivity",
-      ">0–0.2",
-      ">0.2–0.4",
-      ">0.4–0.6",
-      ">0.6–0.8",
-      ">0.8–1.0"
-    ),
-    fill = c("white", fill_cols),
-    title = "Exposure difference",
-    bg = "white",
-    cex = 0.75,
-    bty = "o"
-  )
 
-  legend(
-    "bottomleft",
-    inset = 0.02,
-    legend = c(
-      "Selected neighbourhood",
-      "Reference point"
-    ),
-    lwd = c(2, NA),
-    pch = c(NA, 21),
-    pt.bg = c(NA, "deepskyblue"),
-    col = "black",
-    bg = "white",
-    cex = 0.75,
-    bty = "o"
-  )
+
+
 
   mtext(
     "Map data: OpenStreetMap contributors",
     side = 1,
     line = 1.1,
     cex = 0.60
+  )
+
+
+  # External colour legend and closely spaced map symbols.
+  par(mar = c(0, 0, 0, 0))
+  plot.new()
+
+  legend(
+    x = 0.5,
+    y = 0.76,
+    legend = c("No sensitivity", ">0–0.2", ">0.2–0.4", ">0.4–0.6", ">0.6–0.8", ">0.8–1.0"),
+    fill = c("white", fill_cols),
+    title = "Exposure difference",
+    ncol = 2,
+    xjust = 0.5,
+    yjust = 0.5,
+    cex = 1.18,
+    x.intersp = 0.72,
+    y.intersp = 1.08,
+    bty = "n"
+  )
+
+  # Explicit positions keep the symbols close to their labels.
+  symbols_y <- 0.46
+
+  segments(
+    x0 = 0.18,
+    y0 = symbols_y,
+    x1 = 0.22,
+    y1 = symbols_y,
+    col = "black",
+    lwd = 2
+  )
+
+  text(
+    x = 0.235,
+    y = symbols_y,
+    labels = "Selected neighbourhood",
+    adj = c(0, 0.5),
+    cex = 1.02
+  )
+
+  points(
+    x = 0.59,
+    y = symbols_y,
+    pch = 21,
+    bg = "deepskyblue",
+    col = "black",
+    cex = 1.10
+  )
+
+  text(
+    x = 0.608,
+    y = symbols_y,
+    labels = "Westwood Hills",
+    adj = c(0, 0.5),
+    cex = 1.02
   )
 
 }, finally = {

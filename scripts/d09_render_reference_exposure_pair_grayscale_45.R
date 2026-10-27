@@ -136,11 +136,13 @@ render <- function(provider, name, title, attribution) {
   png(
     filename = path,
     width = 1800,
-    height = 2400,
+    height = 2920,
     res = 200
   )
 
   tryCatch({
+
+    layout(matrix(c(1, 2), ncol = 1), heights = c(8.5, 2.1))
 
     par(mar = c(2.6, 0.3, 1.7, 0.3))
 
@@ -203,30 +205,9 @@ render <- function(provider, name, title, attribution) {
       line = 0.2
     )
 
-    legend(
-      "topright",
-      inset = 0.02,
-      legend = c("0.0–0.2", "0.2–0.4", "0.4–0.6", "0.6–0.8", "0.8–1.0"),
-      fill = overlay_colours,
-      title = "Reference exposure",
-      bg = "white",
-      cex = 0.75,
-      bty = "o"
-    )
 
-    legend(
-      "bottomleft",
-      inset = 0.02,
-      legend = c("Selected neighbourhood", "Reference point"),
-      lwd = c(2, NA),
-      pch = c(NA, 21),
-      pt.bg = c(NA, "deepskyblue"),
-      pt.cex = c(NA, 1.2),
-      col = c("black", "black"),
-      bg = "white",
-      cex = 0.75,
-      bty = "o"
-    )
+
+
 
     mtext(
       attribution,
@@ -235,7 +216,64 @@ render <- function(provider, name, title, attribution) {
       cex = 0.60
     )
 
-  }, finally = {
+
+  # External colour legend and closely spaced map symbols.
+  par(mar = c(0, 0, 0, 0))
+  plot.new()
+
+  legend(
+    x = 0.5,
+    y = 0.76,
+    legend = c("0.0–0.2", "0.2–0.4", "0.4–0.6", "0.6–0.8", "0.8–1.0"),
+    fill = overlay_colours,
+    title = "Reference exposure",
+    ncol = 2,
+    xjust = 0.5,
+    yjust = 0.5,
+    cex = 1.18,
+    x.intersp = 0.72,
+    y.intersp = 1.08,
+    bty = "n"
+  )
+
+  # Explicit positions keep the symbols close to their labels.
+  symbols_y <- 0.46
+
+  segments(
+    x0 = 0.18,
+    y0 = symbols_y,
+    x1 = 0.22,
+    y1 = symbols_y,
+    col = "black",
+    lwd = 2
+  )
+
+  text(
+    x = 0.235,
+    y = symbols_y,
+    labels = "Selected neighbourhood",
+    adj = c(0, 0.5),
+    cex = 1.02
+  )
+
+  points(
+    x = 0.59,
+    y = symbols_y,
+    pch = 21,
+    bg = "deepskyblue",
+    col = "black",
+    cex = 1.10
+  )
+
+  text(
+    x = 0.608,
+    y = symbols_y,
+    labels = "Westwood Hills",
+    adj = c(0, 0.5),
+    cex = 1.02
+  )
+
+}, finally = {
     dev.off()
   })
 

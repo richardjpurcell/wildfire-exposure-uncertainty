@@ -200,11 +200,13 @@ line_colours <- stability_palette[stability_class]
 png(
   filename = output_path,
   width = 2000,
-  height = 2000,
+  height = 2400,
   res = 200
 )
 
 tryCatch({
+
+  layout(matrix(c(1, 2), ncol = 1), heights = c(8.5, 1.8))
 
   par(mar = c(3.2, 0.5, 2.2, 0.5))
 
@@ -281,26 +283,7 @@ tryCatch({
 
 
   # Ordered legend for the 72-setting viability fraction.
-  legend(
-    x = xy[1] + 3650,
-    y = xy[2] + 6100,
-    legend = c(
-      "0.0-0.2",
-      "0.2-0.4",
-      "0.4-0.6",
-      "0.6-0.8",
-      "0.8-1.0"
-    ),
-    col = stability_palette,
-    lty = rep(1, 5),
-    lwd = rep(3, 5),
-    title = "Viable fraction",
-    bg = "white",
-    bty = "o",
-    cex = 0.76,
-    xjust = 0,
-    yjust = 1
-  )
+
 
   legend(
     x = xy[1] - 6200,
@@ -329,6 +312,27 @@ tryCatch({
     line = 1.8,
     cex = 0.60
   )
+
+
+    # Larger categorical legend beneath the directional map.
+    par(mar = c(0, 0, 0, 0))
+    plot.new()
+    legend(
+      "center",
+      legend = c(
+        "0.0–0.2", "0.2–0.4", "0.4–0.6",
+        "0.6–0.8", "0.8–1.0"
+      ),
+      col = stability_palette,
+      lty = 1,
+      lwd = 4,
+      title = "Viable fraction",
+      ncol = 2,
+      cex = 1.35,
+      x.intersp = 0.8,
+      y.intersp = 1.2,
+      bty = "n"
+    )
 
 }, finally = {
   dev.off()
