@@ -91,7 +91,7 @@ The following figures show complementary aspects of the assessment. They are not
 
 ### Four-scenario directional stability
 
-<p align="center"><img src="outputs/figures/d11_four_scenario_directional_stability.png" alt="Four-scenario directional stability" width="70%"></p>
+<p align="center"><img src="outputs/figures/d11_four_scenario_directional_stability.png" alt="Four-scenario directional stability" width="90%"></p>
 
 *Panel A distinguishes directional classifications that remain viable, remain nonviable, or vary across four landscape scenarios. Panel B identifies robust cross-edition differences under the tested unresolved-category assignments. Neither panel identifies safe directions or historical environmental change.*
 
