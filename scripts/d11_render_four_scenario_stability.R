@@ -260,16 +260,17 @@ draw_foreground <- function() {
 }
 
 draw_legend <- function(labels, colours, widths) {
+  plot.new()
   legend(
-    "topleft",
-    inset = c(0.025, 0.12),
+    "center",
     legend = labels,
     col = colours,
     lty = 1,
     lwd = widths,
-    cex = 0.75,
-    bg = "white",
-    bty = "o"
+    cex = 1.65,
+    bty = "n",
+    x.intersp = 0.7,
+    y.intersp = 1.1
   )
 }
 
@@ -290,8 +291,12 @@ png(
 
 tryCatch({
 
+  layout(
+    matrix(c(1, 2, 3, 4), nrow = 2, byrow = TRUE),
+    heights = c(8, 2.2)
+  )
+
   par(
-    mfrow = c(1, 2),
     mar = c(3.2, 0.6, 2.6, 0.6),
     oma = c(0.4, 0, 0, 0)
   )
@@ -328,15 +333,7 @@ tryCatch({
     line = 0.8
   )
 
-  draw_legend(
-    c(
-      "Always viable (38)",
-      "Always nonviable (22)",
-      "Variable (48)"
-    ),
-    c("#447C65", "#92979B", "#D18A24"),
-    c(3, 2, 4)
-  )
+
 
   mtext(
     "2024 and 2026 | lower and upper assignments",
@@ -384,15 +381,7 @@ tryCatch({
     line = 0.8
   )
 
-  draw_legend(
-    c(
-      "2024 viable / 2026 nonviable (9)",
-      "2024 nonviable / 2026 viable (2)",
-      "Not robustly separated (97)"
-    ),
-    c("#BD7654", "#5184A3", "#B7BABC"),
-    c(4, 4, 1.5)
-  )
+
 
   mtext(
     "Different in both unresolved-code assignments",
@@ -406,6 +395,29 @@ tryCatch({
     side = 1,
     line = 2.0,
     cex = 0.64
+  )
+
+  # Separate readable legend panels below the two maps.
+  par(mar = c(0, 0, 0, 0))
+
+  draw_legend(
+    c(
+      "Always viable (38)",
+      "Always nonviable (22)",
+      "Variable (48)"
+    ),
+    c("#447C65", "#92979B", "#D18A24"),
+    c(3, 2, 4)
+  )
+
+  draw_legend(
+    c(
+      "2024 viable / 2026 nonviable (9)",
+      "2024 nonviable / 2026 viable (2)",
+      "Not robustly separated (97)"
+    ),
+    c("#BD7654", "#5184A3", "#B7BABC"),
+    c(4, 4, 1.5)
   )
 
 }, finally = {
