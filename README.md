@@ -12,6 +12,8 @@ This project investigates how those dependencies can be made visible alongside a
 
 The objective is not to determine which landscape representation is correct or to predict wildfire behaviour. It is to distinguish conclusions that persist under specified assumptions from those that depend on consequential choices.
 
+For someone interpreting an exposure assessment, this distinction matters because two apparently similar conclusions may depend differently on the underlying evidence and assumptions. One may persist across tested alternatives, while another may change when a classification or analytical choice changes. Making that difference visible helps identify where closer examination of the evidence or method may be warranted.
+
 **Central proposition:** An exposure assessment should communicate not only its conclusions, but also the evidence and assumptions on which those conclusions depend.
 
 ## Principal findings
@@ -19,6 +21,8 @@ The objective is not to determine which landscape representation is correct or t
 ### 1. Directional conclusions depend on landscape representation
 
 We assessed 108 directional segments extending from a reference point near Westwood Hills, using four scenarios constructed from the 2024 and 2026 Canadian Fire Behaviour Prediction (FBP) fuel representations.
+
+Here, **viable** means that a directional segment meets the experiment's specified exposure and viability thresholds. It does not indicate a safe route, suitable deployment location, or recommended direction of travel.
 
 For each edition, an unresolved fuel category was assigned alternative binary values. The directional geometry, 500 m exposure calculation, exposure threshold of 0.60, and viability threshold of 0.80 were held constant.
 
